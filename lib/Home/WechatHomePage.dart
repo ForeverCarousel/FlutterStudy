@@ -9,7 +9,7 @@ class _WechatHomePageState extends State<WechatHomePage> {
   @override
   void initState() {
     for (var i = 0; i < 40; i++) {
-      Text cell =Text("这是第${i}行");
+      Text cell =Text("这是的第${i+1}行");
       listCells.add(cell);
     }
     super.initState();
@@ -23,7 +23,7 @@ class _WechatHomePageState extends State<WechatHomePage> {
       ),
       body: ListView.builder(
         padding: EdgeInsets.all(20.0),
-        itemExtent: 50.0,
+        itemExtent: 50.2,
         itemBuilder: (BuildContext context, int index){
           return listCells[index];
         },
