@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'Home/WechatHomePage.dart';
-import 'Contacts/WechatContactsPage.dart';
-import 'Discovery/WechatDiscoveryPage.dart';
-import 'Me/WechatProfilePage.dart';
+import 'Home/wechat_home_page.dart';
+import 'Contacts/wechat_contacts_page.dart';
+import 'Discovery/wechat_discovery_page.dart';
+import 'Me/wechat_profile_page.dart';
 
 /*
 此类的实例作为MaterialApp组件的Home属性 用于构建一个底部有TabBar 顶部有导航栏的容器组件

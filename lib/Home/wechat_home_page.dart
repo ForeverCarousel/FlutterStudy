@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Common/wechat_constant.dart' show WechatColors;
 // import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class WechatHomePage extends StatefulWidget {
@@ -19,8 +20,19 @@ class _WechatHomePageState extends State<WechatHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(WechatColors.WechatAppbarColor),
         title: Text("微信"),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: (){},
+          ),
+           IconButton(
+            icon: Icon(Icons.add),
+            onPressed: (){},
+          )
+        ],
       ),
       body: ListView.builder(
         physics: BouncingScrollPhysics(),
@@ -47,11 +59,11 @@ class _WechaHomeListCellState extends State<WechaHomeListCell> {
     return Container(
       width: 400,
       height: 60,
-      color: Colors.lightBlue,
+      color: Colors.white,
       child: ListTile(
         title: Text("姓名"),
-        subtitle: Text("最后一条消息"),
-        leading: Icon(Icons.contact_mail),
+        subtitle: Text("消息消息消息消息消息消息"),
+        leading: Icon(Icons.person),
         trailing: Icon(Icons.navigate_next),
       )
     );
