@@ -3,7 +3,7 @@ import 'Home/wechat_home_page.dart';
 import 'Contacts/wechat_contacts_page.dart';
 import 'Discovery/wechat_discovery_page.dart';
 import 'Me/wechat_profile_page.dart';
-
+import 'Common/wechat_constant.dart' show WechatIcons;
 /*
 此类的实例作为MaterialApp组件的Home属性 用于构建一个底部有TabBar 顶部有导航栏的容器组件
 也可以理解为首页
@@ -27,13 +27,18 @@ class _WechatRootContainerState extends State<WechatRootContainer> {
   int _currentIndex = 0;
   final List<BottomNavigationBarItem> _itemsList = List();
   final List<String> _itemTitles = ["微信", "通讯录", "发现", "我"];
-  final List<Icon> _itemIcons = [
-    Icon(Icons.message),
-    Icon(Icons.contacts),
-    Icon(Icons.near_me),
-    Icon(Icons.contact_mail),
+  final List<IconData> _itemIcons = [//这里通过使用自定义iconfont来生成图标
+    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
+    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
+    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
+    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
   ];
-
+  final List<IconData> _itemIconsSelect = [//这里通过使用自定义iconfont来生成图标
+    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
+    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
+    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
+    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
+  ];
   @override
   void initState() {
     _pagesList//构建四个子页面
@@ -44,7 +49,9 @@ class _WechatRootContainerState extends State<WechatRootContainer> {
     for (var i = 0; i < 4; i++) {//构建底部items
       BottomNavigationBarItem item = BottomNavigationBarItem(
         title: Text(_itemTitles[i]),
-        icon: _itemIcons[i],
+        // icon: Icon(_itemIcons[i]),
+        icon: Icon(IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily)),
+        activeIcon: Icon(_itemIconsSelect[i]),
         backgroundColor: Colors.lightBlue,
       );
       _itemsList.add(item);
@@ -69,5 +76,6 @@ class _WechatRootContainerState extends State<WechatRootContainer> {
         },
       ),
     );
+    
   }
 }

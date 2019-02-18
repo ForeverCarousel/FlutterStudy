@@ -15,7 +15,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+    
   pull_to_refresh: ^1.1.5
   cupertino_icons: ^0.1.2
 
@@ -31,5 +31,5 @@ flutter:
   #  - images/a_dot_ham.jpeg
 fonts:
   - family: WechatAppFont
-  - asset: assets/fonts/iconfont.ttf
- 
+    fonts:
+      - asset: assets/fonts/iconfont.ttf

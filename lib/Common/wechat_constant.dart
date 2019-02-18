@@ -3,3 +3,7 @@
 class WechatColors {
   static const WechatAppbarColor = 0xff303030;
 }
+
+class WechatIcons {
+  static const WechatIconFontFamily = "WechatAppFont";
+}
