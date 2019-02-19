@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../Common/wechat_constant.dart' show WechatColors,WechatIcons;
 // import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+//popup item的事件美剧
 enum WechatHomePopmenuAction {
   HOME_CHAT_GROUP,HOME_ADD_FRIEND,HOME_SACN,HOME_PAYMENT
 }
@@ -14,7 +15,7 @@ class _WechatHomePageState extends State<WechatHomePage> {
   List<Widget> listCells = List();
   @override
   void initState() {
-    for (var i = 0; i < 40; i++) {
+    for (var i = 0; i < 20; i++) {
       WechaHomeListCell cell = WechaHomeListCell();
       listCells.add(cell);
     }
@@ -36,7 +37,8 @@ class _WechatHomePageState extends State<WechatHomePage> {
         padding: EdgeInsets.all(2.0),
         // itemExtent: 60.0,
         itemBuilder: (BuildContext context, int index){
-          return listCells[index];
+          WechaHomeListCell cell = listCells[index];
+          return cell;
         },
         itemCount: listCells.length,
       ),
@@ -120,8 +122,8 @@ class _WechaHomeListCellState extends State<WechaHomeListCell> {
       child: ListTile(
         title: Text("陈晓龙"),
         subtitle: Text("消息消息消息消息消息消息"),
-        leading: Icon(Icons.person),
-        trailing: Icon(Icons.navigate_next),
+        leading: Image.network("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=419272757,73864908&fm=26&gp=0.jpg"),
+        // trailing: Icon(Icons.navigate_next),
       )
     );
   }
