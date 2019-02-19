@@ -27,17 +27,17 @@ class _WechatRootContainerState extends State<WechatRootContainer> {
   int _currentIndex = 0;
   final List<BottomNavigationBarItem> _itemsList = List();
   final List<String> _itemTitles = ["微信", "通讯录", "发现", "我"];
-  final List<IconData> _itemIcons = [//这里通过使用自定义iconfont来生成图标
-    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
-    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
-    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
-    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
+  final List<Icon> _itemIcons = [//这里通过使用自定义iconfont来生成图标
+    Icon(IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily)),
+    Icon(IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily)),
+    Icon(IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily)),
+    Icon(IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily)),
   ];
-  final List<IconData> _itemIconsSelect = [//这里通过使用自定义iconfont来生成图标
-    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
-    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
-    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
-    IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily),
+  final List<Icon> _itemIconsSelect = [//这里通过使用自定义iconfont来生成图标
+    Icon(IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily)),
+    Icon(IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily)),
+    Icon(IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily)),
+    Icon(IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily)),
   ];
   @override
   void initState() {
@@ -49,9 +49,8 @@ class _WechatRootContainerState extends State<WechatRootContainer> {
     for (var i = 0; i < 4; i++) {//构建底部items
       BottomNavigationBarItem item = BottomNavigationBarItem(
         title: Text(_itemTitles[i]),
-        // icon: Icon(_itemIcons[i]),
-        icon: Icon(IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily)),
-        activeIcon: Icon(_itemIconsSelect[i]),
+        icon: Icon(IconData(0xe601,fontFamily: "WechatAppFont")),
+        activeIcon:Icon(IconData(0xe612,fontFamily: "WechatAppFont")),
         backgroundColor: Colors.lightBlue,
       );
       _itemsList.add(item);
@@ -69,7 +68,7 @@ class _WechatRootContainerState extends State<WechatRootContainer> {
         items: _itemsList,
         currentIndex: _currentIndex,
         onTap: (int index) {//一个匿名函数的回调
-          print("当前点击的是：$index");
+          // print("当前点击的是：$index");
           setState(() {
             _currentIndex = index;
           });

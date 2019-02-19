@@ -5,5 +5,5 @@ class WechatColors {
 }
 
 class WechatIcons {
-  static const WechatIconFontFamily = "WechatAppFont";
+  static const WechatIconFontFamily = "WechatIconFontFamily";
 }

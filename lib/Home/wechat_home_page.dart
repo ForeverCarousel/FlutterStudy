@@ -61,7 +61,7 @@ class _WechaHomeListCellState extends State<WechaHomeListCell> {
       height: 60,
       color: Colors.white,
       child: ListTile(
-        title: Text("姓名"),
+        title: Text("陈晓龙"),
         subtitle: Text("消息消息消息消息消息消息"),
         leading: Icon(Icons.person),
         trailing: Icon(Icons.navigate_next),
