@@ -24,13 +24,37 @@ class _WechatHomePageState extends State<WechatHomePage> {
         title: Text("微信"),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: (){},
-          ),
-           IconButton(
+          // IconButton(
+          //   icon: Icon(Icons.search),
+          //   onPressed: (){},
+          // ),
+           PopupMenuButton(
             icon: Icon(Icons.add),
-            onPressed: (){},
+            offset: Offset(0, 60),
+            itemBuilder:(BuildContext context){
+              return <PopupMenuEntry<String>>[
+                  PopupMenuItem(
+                      child:  Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Icon(Icons.add_circle),
+                          Text('增加')
+                        ],
+                      ),
+                      value: '这是增加',
+                    ),
+                    PopupMenuItem(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Icon(Icons.remove_circle),
+                          Text('减少')
+                        ],
+                      ),
+                      value: '这是删除',
+                    )
+              ];
+            } ,
           )
         ],
       ),
