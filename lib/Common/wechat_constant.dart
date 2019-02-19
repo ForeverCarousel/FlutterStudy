@@ -2,6 +2,7 @@
 
 class WechatColors {
   static const WechatAppbarColor = 0xff303030;
+  static const WechatAppbarMenuTextColor = 0xffffffff;
 }
 
 class WechatIcons {

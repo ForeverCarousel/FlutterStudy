@@ -28,55 +28,7 @@ class _WechatHomePageState extends State<WechatHomePage> {
         title: Text("微信"),
         centerTitle: true,
         actions: <Widget>[
-           PopupMenuButton(
-            icon: Icon(Icons.add),
-            offset: Offset(0, 60),
-            itemBuilder:(BuildContext context){
-              return <PopupMenuEntry<WechatHomePopmenuAction>>[
-                  PopupMenuItem(
-                      child:  Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Icon(IconData(0xe601,fontFamily: WechatIcons.WechatIconFontFamily)),
-                          Text('开始群聊')
-                        ],
-                      ),
-                      value: WechatHomePopmenuAction.HOME_CHAT_GROUP,
-                    ),
-                    PopupMenuItem(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Icon(IconData(0xe6ce,fontFamily: WechatIcons.WechatIconFontFamily)),
-                          Text('添加好友')
-                        ],
-                      ),
-                      value: WechatHomePopmenuAction.HOME_ADD_FRIEND,
-                    ) ,
-                    PopupMenuItem(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Icon(IconData(0xe68a,fontFamily: WechatIcons.WechatIconFontFamily)),
-                          Text('扫一扫')
-                        ],
-                      ),
-                      value: WechatHomePopmenuAction.HOME_SACN,
-                    ),
-                    PopupMenuItem(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Icon(IconData(0xe658,fontFamily: WechatIcons.WechatIconFontFamily)),
-                          Text('收付款')
-                        ],
-                      ),
-                      value: WechatHomePopmenuAction.HOME_PAYMENT,
-                    )
-              ];
-            } ,
-          )
+           _buildPopmenuBtn()
         ],
       ),
       body: ListView.builder(
@@ -88,6 +40,66 @@ class _WechatHomePageState extends State<WechatHomePage> {
         },
         itemCount: listCells.length,
       ),
+    );
+  }
+
+  PopupMenuButton _buildPopmenuBtn(){
+    return PopupMenuButton(
+      icon: Icon(IconData(0xe644,fontFamily: WechatIcons.WechatIconFontFamily)),
+      offset: Offset(0, 60.0),
+      onSelected: (index){
+        print(index);
+      },
+      itemBuilder:(BuildContext context){
+        return <PopupMenuEntry<WechatHomePopmenuAction>>[//PopupMenuItem继承自PopupMenuEntry
+            PopupMenuItem(
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Icon(IconData(0xe601,fontFamily: WechatIcons.WechatIconFontFamily),color:const Color(WechatColors.WechatAppbarMenuTextColor),),
+                    Container(width: 16,),
+                    Text('开始群聊',style: TextStyle(color: const Color(WechatColors.WechatAppbarMenuTextColor)))
+                  ],
+                ),
+                value: WechatHomePopmenuAction.HOME_CHAT_GROUP,
+                
+              ),
+            PopupMenuItem(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Icon(IconData(0xe6ce,fontFamily: WechatIcons.WechatIconFontFamily),color: const Color(WechatColors.WechatAppbarMenuTextColor)),
+                  Container(width: 16,),
+                  Text('添加好友',style: TextStyle(color: const Color(WechatColors.WechatAppbarMenuTextColor)))
+                ],
+              ),
+              value: WechatHomePopmenuAction.HOME_ADD_FRIEND,
+            ) ,
+            PopupMenuItem(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Icon(IconData(0xe68a,fontFamily: WechatIcons.WechatIconFontFamily),color: const Color(WechatColors.WechatAppbarMenuTextColor),),
+                  Container(width: 16,),
+                  Text('扫一扫',style: TextStyle(color: const Color(WechatColors.WechatAppbarMenuTextColor)))
+                ],
+              ),
+              value: WechatHomePopmenuAction.HOME_SACN,
+            ),
+            PopupMenuItem(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Icon(IconData(0xe658,fontFamily: WechatIcons.WechatIconFontFamily),color: const Color(WechatColors.WechatAppbarMenuTextColor)),
+                    Container(width: 16,),
+                    Text('收付款',style: TextStyle(color: const Color(WechatColors.WechatAppbarMenuTextColor)))
+                  ],
+                ),
+                value: WechatHomePopmenuAction.HOME_PAYMENT,
+              )
+        ];
+      } ,
     );
   }
 }
