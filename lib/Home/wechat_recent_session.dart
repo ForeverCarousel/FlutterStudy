@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
 class WechatRecentSession {
-  
-  const WechatRecentSession({
-    @required this.avatar,
-    @required this.title,
-    this.titleColor = 0xffffffff,
-    this.content,
-    this.time,
-    this.enableMute = false,
-    this.unreadMsgCount = 0
-  }): assert (avatar != null),
-      assert (title != null),
-      super();
+  const WechatRecentSession(
+      {@required this.avatar,
+      @required this.title,
+      this.titleColor = 0xffffffff,
+      this.content,
+      this.time,
+      this.enableMute = false,
+      this.unreadMsgCount = 0})
+      : assert(avatar != null),
+        assert(title != null),
+        super();
 
   final String avatar;
   final String title;
@@ -23,20 +22,17 @@ class WechatRecentSession {
   final int unreadMsgCount;
 
   bool isAvatarFromNet() {
-    if(this.avatar.indexOf('http') == 0 || 
-      this.avatar.indexOf('https') == 0) {
+    if (this.avatar.indexOf('http') == 0 || this.avatar.indexOf('https') == 0) {
       return true;
     }
     return false;
   }
 }
 
-
 class WechatRecentSessionPageData {
-  WechatRecentSessionPageData({
-    this.sessionList
-  }):assert(sessionList !=null),
-    super();
+  WechatRecentSessionPageData({this.sessionList})
+      : assert(sessionList != null),
+        super();
 
   final List<WechatRecentSession> sessionList;
 
@@ -50,7 +46,7 @@ class WechatRecentSessionPageData {
     const WechatRecentSession(
       avatar: 'assets/images/ic_tx_news.png',
       title: '腾讯新闻',
-      content: '这是一条假新闻,纯粹是用来假装这个看起来像真新闻的',
+      content: '假装这个看起来像真新闻的',
       time: '17:20',
     ),
     const WechatRecentSession(
