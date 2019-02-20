@@ -44,7 +44,7 @@ class WechatRecentSessionPageData {
     const WechatRecentSession(
       avatar: 'assets/images/ic_file_transfer.png',
       title: '文件传输助手',
-      content: '',
+      content: '[图片]',
       time: '19:56',
     ),
     const WechatRecentSession(

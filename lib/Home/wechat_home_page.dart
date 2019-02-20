@@ -30,6 +30,7 @@ class _WechatHomePageState extends State<WechatHomePage> {
       appBar: AppBar(
         backgroundColor: Color(WechatColors.WechatAppbarColor),
         title: Text("微信"),
+        elevation: 0.0,//取消bar底部material风格的滚动标示图产生的阴影
         centerTitle: true,
         actions: <Widget>[
            _buildPopmenuBtn()
@@ -156,7 +157,7 @@ class _WechaHomeListCellState extends State<WechaHomeListCell> {
         mainAxisAlignment: MainAxisAlignment.start,
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Material(//给头像组建设置圆角 包一层Material
+          ClipRRect(//给头像组建设置圆角 包一层
             borderRadius: BorderRadius.circular(4.0),
             child: avatar,
           ),
@@ -176,7 +177,7 @@ class _WechaHomeListCellState extends State<WechaHomeListCell> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              Text(session.time,style: TextStyle(fontSize: 12.0,color: Color(0xff9e9e9e))),
+              Text(session.time,style: TextStyle(fontSize: 11.0,color: Color(0xff9e9e9e))),
               // Icon(Icons.ring_volume)
             ],
           )
