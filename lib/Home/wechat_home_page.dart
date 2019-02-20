@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Common/wechat_constant.dart' show WechatColors,WechatIcons;
+import 'wechat_recent_session.dart' show WechatRecentSession,WechatRecentSessionPageData;
+
 // import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 //popup item的事件美剧
@@ -13,10 +15,11 @@ class WechatHomePage extends StatefulWidget {
 
 class _WechatHomePageState extends State<WechatHomePage> {
   List<Widget> listCells = List();
+  List<WechatRecentSession> listSession = WechatRecentSessionPageData.mockSessionList;
   @override
   void initState() {
-    for (var i = 0; i < 20; i++) {
-      WechaHomeListCell cell = WechaHomeListCell();
+    for (var i = 0; i < listSession.length; i++) {
+      WechaHomeListCell cell = WechaHomeListCell(session: listSession[i]);
       listCells.add(cell);
     }
     super.initState();
@@ -108,22 +111,76 @@ class _WechatHomePageState extends State<WechatHomePage> {
 
 //首页cell
 class WechaHomeListCell extends StatefulWidget {
-  _WechaHomeListCellState createState() => _WechaHomeListCellState();
+  WechaHomeListCell({
+    this.session
+  }):assert(session !=null);
+  final WechatRecentSession session;
+
+  _WechaHomeListCellState createState() => _WechaHomeListCellState(session: this.session);
 }
 
 class _WechaHomeListCellState extends State<WechaHomeListCell> {
-  String title;
+  _WechaHomeListCellState({
+    this.session
+  }):assert(session !=null);
+
+  final WechatRecentSession session;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 400,
-      height: 60,
-      color: Colors.white,
-      child: ListTile(
-        title: Text("陈晓龙"),
-        subtitle: Text("消息消息消息消息消息消息"),
-        leading: Image.network("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=419272757,73864908&fm=26&gp=0.jpg"),
-        // trailing: Icon(Icons.navigate_next),
+    Widget avatar;
+    if (this.session.isAvatarFromNet()) {
+      avatar = Image.network(session.avatar,width: 48,height: 48);
+    }else{
+      avatar =Image.asset(session.avatar,width: 48,height: 48);
+    }
+    var rightWidget = <Widget>[
+      Text(session.time,style: TextStyle(fontSize: 12.0,color: Color(0xff9e9e9e))),
+      SizedBox(height: 10.0),
+    ];
+    if (this.session.enableMute) {//-,- 以后再加先做主要结构
+      // muteIcon =Icon(i)
+    }
+
+    return Container(//cell的整体一个container 内部全局是一个row 分为左中右三部分 其中中间和右侧又是两个coloum
+      // width: 400,
+      // height: 80,
+      padding: EdgeInsets.only(left: 12.0, top: 10.0, right: 12.0, bottom: 10.0),
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(
+          width: 0.2,color: Colors.grey
+        ))
+      ),
+      // color: Colors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Material(//给头像组建设置圆角 包一层Material
+            borderRadius: BorderRadius.circular(4.0),
+            child: avatar,
+          ),
+          Container(width: 15),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(session.title,style: TextStyle(fontSize: 14,color: Colors.black)),
+                Text(session.content,maxLines: 1,style: TextStyle(fontSize: 12,color: Colors.grey))
+              ],
+            ),
+          ),
+          Container(width: 15),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Text(session.time,style: TextStyle(fontSize: 12.0,color: Color(0xff9e9e9e))),
+              // Icon(Icons.ring_volume)
+            ],
+          )
+        ],
       )
     );
   }
