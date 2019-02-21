@@ -36,7 +36,6 @@ class _WechatHomePageState extends State<WechatHomePage> {
     super.initState();
   }
   
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,11 +62,11 @@ class _WechatHomePageState extends State<WechatHomePage> {
       ),
     );
   }
-
+  //构建右上角pop按钮
   PopupMenuButton _buildPopmenuBtn() {
     return PopupMenuButton(
       // icon:Icon(IconData(0xe65e, fontFamily: WechatIcons.WechatIconFontFamily)),
-      icon: Icon(Icons.add_circle),
+      icon: Icon(IconData(0xe658,fontFamily: WechatIcons.WechatIconFontFamily)),
       offset: Offset(0, 60.0),
       onSelected: (index) {
         print(index);
@@ -155,7 +154,7 @@ class _WechatHomePageState extends State<WechatHomePage> {
       },
     );
   }
-  
+  //构建多端在线的header
   Widget _buildListHeader() {
     return Container(
       padding: EdgeInsets.only(left: 12.0, top: 10.0, right: 12.0, bottom: 10.0),
@@ -234,15 +233,21 @@ class _WechaHomeListCellState extends State<WechaHomeListCell> {
             child: Image.asset(session.avatar, width: 48, height: 48),
         );
     }
-    var rightWidget = <Widget>[
-      Text(session.time,
-          style: TextStyle(fontSize: 12.0, color: Color(0xff9e9e9e))),
-      SizedBox(height: 10.0),
-    ];
-    if (this.session.enableMute) {
-      //-,- 以后再加先做主要结构
-      // muteIcon =Icon(i)
+    //暂时用透明色来控制静音icon的显示和隐藏
+    Color _muteIconColor = Colors.grey;
+    if (!this.session.enableMute) {
+      _muteIconColor = Colors.transparent;
     }
+    List<Widget> _rightWidget = <Widget>[
+      Text(session.time, style: TextStyle(fontSize: 12.0, color: Color(0xff9e9e9e))),
+      SizedBox(height: 10.0),
+      Icon(
+        IconData(0xe755,fontFamily: WechatIcons.WechatIconFontFamily),
+        color: _muteIconColor,
+        size: 16,
+      )
+    ];
+    
     Container _buildCell() {//提取方法 避免嵌套过多
       return Container(
           //cell的整体一个container 内部全局是一个row 分为左中右三部分 其中中间和右侧又是两个coloum
@@ -276,12 +281,7 @@ class _WechaHomeListCellState extends State<WechaHomeListCell> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Text(session.time,
-                      style:
-                          TextStyle(fontSize: 11.0, color: Color(0xff9e9e9e))),
-                  Icon(null)
-                ],
+                children: _rightWidget
               )
             ],
           ));
@@ -319,3 +319,12 @@ class UnreadDotIcon extends StatelessWidget {
   }
 }
 
+//静音组件
+class MuteIcon extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+
+    );
+  }
+}
