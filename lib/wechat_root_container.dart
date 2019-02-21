@@ -28,16 +28,16 @@ class _WechatRootContainerState extends State<WechatRootContainer> {
   final List<BottomNavigationBarItem> _itemsList = List();
   final List<String> _itemTitles = ["微信", "通讯录", "发现", "我"];
   final List<Icon> _itemIcons = [//这里通过使用自定义iconfont来生成图标
+    Icon(IconData(0xe608,fontFamily: WechatIcons.WechatIconFontFamily)),
     Icon(IconData(0xe601,fontFamily: WechatIcons.WechatIconFontFamily)),
     Icon(IconData(0xe600,fontFamily: WechatIcons.WechatIconFontFamily)),
-    Icon(IconData(0xe623,fontFamily: WechatIcons.WechatIconFontFamily)),
-    Icon(IconData(0xe651,fontFamily: WechatIcons.WechatIconFontFamily)),
+    Icon(IconData(0xe6c0,fontFamily: WechatIcons.WechatIconFontFamily)),
   ];
   final List<Icon> _itemIconsSelect = [//这里通过使用自定义iconfont来生成图标
-    Icon(IconData(0xe64a,fontFamily: WechatIcons.WechatIconFontFamily)),
-    Icon(IconData(0xe712,fontFamily: WechatIcons.WechatIconFontFamily)),
-    Icon(IconData(0xe60c,fontFamily: WechatIcons.WechatIconFontFamily)),
-    Icon(IconData(0xe712,fontFamily: WechatIcons.WechatIconFontFamily)),
+    Icon(IconData(0xe603,fontFamily: WechatIcons.WechatIconFontFamily)),
+    Icon(IconData(0xe656,fontFamily: WechatIcons.WechatIconFontFamily)),
+    Icon(IconData(0xe671,fontFamily: WechatIcons.WechatIconFontFamily)),
+    Icon(IconData(0xe626,fontFamily: WechatIcons.WechatIconFontFamily)),
   ];
   @override
   void initState() {

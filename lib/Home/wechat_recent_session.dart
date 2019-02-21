@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'dart:math';
 class WechatRecentSession {
   const WechatRecentSession(
       {@required this.avatar,
@@ -35,7 +35,7 @@ class WechatRecentSessionPageData {
         super();
 
   final List<WechatRecentSession> sessionList;
-
+  
   static List<WechatRecentSession> mockSessionList = [
     const WechatRecentSession(
       avatar: 'assets/images/ic_file_transfer.png',
@@ -46,7 +46,7 @@ class WechatRecentSessionPageData {
     const WechatRecentSession(
       avatar: 'assets/images/ic_tx_news.png',
       title: '腾讯新闻',
-      content: '假装这个看起来像真新闻的',
+      content: '假装这个看起来像真的新闻...',
       time: '17:20',
     ),
     const WechatRecentSession(
@@ -85,7 +85,7 @@ class WechatRecentSessionPageData {
       content: '今天要去运动场锻炼吗？',
       time: '昨天',
       enableMute: false,
-      unreadMsgCount: 99,
+      unreadMsgCount: 14,
     ),
     const WechatRecentSession(
       avatar: 'https://randomuser.me/api/portraits/men/10.jpg',
@@ -96,7 +96,7 @@ class WechatRecentSessionPageData {
       unreadMsgCount: 0,
     ),
     const WechatRecentSession(
-      avatar: 'https://randomuser.me/api/portraits/women/10.jpg',
+      avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
       title: 'Tina Morgan',
       content: '晚自习是什么来着？你知道吗，看到的话赶紧回复我',
       time: '17:58',
@@ -105,7 +105,7 @@ class WechatRecentSessionPageData {
     ),
     const WechatRecentSession(
       avatar: 'https://randomuser.me/api/portraits/women/15.jpg',
-      title: 'Lily',
+      title: '翠花',
       content: '今天要去运动场锻炼吗？',
       time: '昨天',
       enableMute: false,

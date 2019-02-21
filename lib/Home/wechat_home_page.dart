@@ -13,10 +13,10 @@ enum WechatHomePopmenuAction {
   HOME_PAYMENT
 }
 
+//首页
 class WechatHomePage extends StatefulWidget {
   _WechatHomePageState createState() => _WechatHomePageState();
 }
-
 class _WechatHomePageState extends State<WechatHomePage> {
   List<Widget> listCells = List(); //cell数组
   List<WechatRecentSession> listSession =
@@ -52,18 +52,22 @@ class _WechatHomePageState extends State<WechatHomePage> {
         padding: EdgeInsets.all(2.0),
         // itemExtent: 60.0,
         itemBuilder: (BuildContext context, int index) {
-          WechaHomeListCell cell = listCells[index];
-          return cell;
+          if (index == 0) {
+            return _buildListHeader();
+          }else{
+            WechaHomeListCell cell = listCells[index - 1];
+            return cell;
+          }       
         },
-        itemCount: listCells.length,
+        itemCount: listCells.length + 1,
       ),
     );
   }
 
   PopupMenuButton _buildPopmenuBtn() {
     return PopupMenuButton(
-      icon:
-          Icon(IconData(0xe644, fontFamily: WechatIcons.WechatIconFontFamily)),
+      // icon:Icon(IconData(0xe65e, fontFamily: WechatIcons.WechatIconFontFamily)),
+      icon: Icon(Icons.add_circle),
       offset: Offset(0, 60.0),
       onSelected: (index) {
         print(index);
@@ -75,18 +79,15 @@ class _WechatHomePageState extends State<WechatHomePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Icon(
-                  IconData(0xe601,
-                      fontFamily: WechatIcons.WechatIconFontFamily),
+                Icon(IconData(
+                  0xe69e,
+                  fontFamily: WechatIcons.WechatIconFontFamily),
                   color: const Color(WechatColors.WechatAppbarMenuTextColor),
                 ),
                 Container(
                   width: 16,
                 ),
-                Text('开始群聊',
-                    style: TextStyle(
-                        color: const Color(
-                            WechatColors.WechatAppbarMenuTextColor)))
+                Text('发起群聊',style: TextStyle(color: const Color(WechatColors.WechatAppbarMenuTextColor)))
               ],
             ),
             value: WechatHomePopmenuAction.HOME_CHAT_GROUP,
@@ -96,7 +97,7 @@ class _WechatHomePageState extends State<WechatHomePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Icon(
-                    IconData(0xe6ce,
+                    IconData(0xe638,
                         fontFamily: WechatIcons.WechatIconFontFamily),
                     color: const Color(WechatColors.WechatAppbarMenuTextColor)),
                 Container(
@@ -115,7 +116,7 @@ class _WechatHomePageState extends State<WechatHomePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Icon(
-                  IconData(0xe68a,
+                  IconData(0xe61b,
                       fontFamily: WechatIcons.WechatIconFontFamily),
                   color: const Color(WechatColors.WechatAppbarMenuTextColor),
                 ),
@@ -136,7 +137,7 @@ class _WechatHomePageState extends State<WechatHomePage> {
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Icon(
-                    IconData(0xe658,
+                    IconData(0xe62a,
                         fontFamily: WechatIcons.WechatIconFontFamily),
                     color: const Color(WechatColors.WechatAppbarMenuTextColor)),
                 Container(
@@ -154,11 +155,36 @@ class _WechatHomePageState extends State<WechatHomePage> {
       },
     );
   }
+  
+  Widget _buildListHeader() {
+    return Container(
+      padding: EdgeInsets.only(left: 12.0, top: 10.0, right: 12.0, bottom: 10.0),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            width: 0.2, color: Colors.grey
+          ),
+        ),
+        color: Color(0xfff5f5f5)
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Icon(IconData(
+            0xe640,
+            fontFamily: WechatIcons.WechatIconFontFamily
+          ), size: 24.0, color: Color(0xff606062)),
+          Container(width: 16.0),
+          Text('Mac 微信已登录，手机通知已关闭。', style: TextStyle(fontSize: 13,color: Color(0xff606062))),
+        ],
+      ),
+    );
+  }
 }
 
 //首页cell
 typedef HomeCellClickFunc = void Function(TapUpDetails detail); //定义回调方法类型
-
 class WechaHomeListCell extends StatefulWidget {
   WechaHomeListCell({
     this.session,
@@ -171,7 +197,6 @@ class WechaHomeListCell extends StatefulWidget {
   _WechaHomeListCellState createState() =>
       _WechaHomeListCellState(session: this.session,clickCallback: this.clickCallback);
 }
-
 class _WechaHomeListCellState extends State<WechaHomeListCell> {
   _WechaHomeListCellState({
     this.session,
@@ -183,11 +208,31 @@ class _WechaHomeListCellState extends State<WechaHomeListCell> {
 
   @override
   Widget build(BuildContext context) {
-    Widget avatar;
+    Widget _avatar;//包含了未读消息数widget
+    Widget unreadIcon =session.unreadMsgCount > 0 ? UnreadDotIcon(count: session.unreadMsgCount) : Container(width: 19,height: 19);
     if (this.session.isAvatarFromNet()) {
-      avatar = Image.network(session.avatar, width: 48, height: 48);
+      _avatar = Stack(
+        overflow: Overflow.visible,//不要剪切超出部分的视图
+        alignment: Alignment.topRight,
+        children: <Widget>[
+          ClipRRect(
+            //给头像组建设置圆角 包一层
+            borderRadius: BorderRadius.circular(5.0),
+            child: Image.network(session.avatar, width: 48, height: 48),
+          ),
+          Positioned(
+            child: unreadIcon,
+            top: -6.0,
+            right: -6.0,
+          )
+        ],
+      ); 
     } else {
-      avatar = Image.asset(session.avatar, width: 48, height: 48);
+      _avatar = ClipRRect(
+            //给头像组建设置圆角 包一层
+            borderRadius: BorderRadius.circular(5.0),
+            child: Image.asset(session.avatar, width: 48, height: 48),
+        );
     }
     var rightWidget = <Widget>[
       Text(session.time,
@@ -198,24 +243,17 @@ class _WechaHomeListCellState extends State<WechaHomeListCell> {
       //-,- 以后再加先做主要结构
       // muteIcon =Icon(i)
     }
-    Container _buildCell() {
-      //提取方法 避免嵌套过多
+    Container _buildCell() {//提取方法 避免嵌套过多
       return Container(
           //cell的整体一个container 内部全局是一个row 分为左中右三部分 其中中间和右侧又是两个coloum
-          padding:
-              EdgeInsets.only(left: 12.0, top: 10.0, right: 12.0, bottom: 10.0),
+          padding: EdgeInsets.only(left: 12.0, top: 10.0, right: 12.0, bottom: 10.0),
           decoration: BoxDecoration(
-              border:
-                  Border(bottom: BorderSide(width: 0.2, color: Colors.grey))),
+              border: Border(bottom: BorderSide(width: 0.2, color: Colors.grey))),
           // color: Colors.white,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              ClipRRect(
-                //给头像组建设置圆角 包一层
-                borderRadius: BorderRadius.circular(5.0),
-                child: avatar,
-              ),
+              _avatar,
               Container(width: 15),
               Expanded(
                 child: Column(
@@ -258,3 +296,26 @@ class _WechaHomeListCellState extends State<WechaHomeListCell> {
     );
   }
 }
+
+//未读角标组件
+class UnreadDotIcon extends StatelessWidget {
+  UnreadDotIcon({
+    this.count
+  });
+  final int count;
+  final double sizeH = 19.0;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: sizeH,
+      height: sizeH,
+      decoration: BoxDecoration(
+        color: Colors.red,
+        borderRadius: BorderRadius.circular(sizeH/2)
+      ),
+      alignment: Alignment.center,
+      child: Text(this.count.toString() ,style: TextStyle(color: Colors.white,fontSize: 11),textAlign: TextAlign.center,),    
+    );
+  }
+}
+
