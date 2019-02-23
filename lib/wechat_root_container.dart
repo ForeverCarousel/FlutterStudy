@@ -43,7 +43,7 @@ class _WechatRootContainerState extends State<WechatRootContainer> {
   void initState() {
     _pagesList//构建四个子页面
       ..add(WechatHomePage())
-      ..add(WechatContactsPage())
+      ..add(WechatContactPage())
       ..add(WechatDiscoveryPage())
       ..add(WechatProfilePage());
     for (var i = 0; i < 4; i++) {//构建底部items
