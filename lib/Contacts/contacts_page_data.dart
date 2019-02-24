@@ -79,7 +79,7 @@ class ContactsPageData {
       nameIndex: 'M',
     ),
     const Contact(
-      avatar: 'https://randomuser.me/api/portraits/women/91.jpg',
+      avatar: 'https://randomuser.me/api/portraits/men/91.jpg',
       name: 'David',
       nameIndex: 'D',
     ),
@@ -119,45 +119,54 @@ class ContactsPageData {
       nameIndex: 'T',
     ),
     const Contact(
-      avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537868900176&di=ddbe94a75a3cc33f880a5f3f675b8acd&imgtype=0&src=http%3A%2F%2Fs2.sinaimg.cn%2Fmw690%2F003wRTwMty6IGZWzd2p31',
-      name: '张伟',
-      nameIndex: 'Z',
+      avatar: 'https://randomuser.me/api/portraits/women/45.jpg',
+      name: 'Kdam',
+      nameIndex: 'K',
     ),
     const Contact(
-      avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1537858866&di=fe35e4465c73122f14e1c9475dd68e47&src=http://a2.att.hudong.com/63/26/01300001128119143503262347361.jpg',
-      name: '张益达',
-      nameIndex: 'Z',
+      avatar: 'https://randomuser.me/api/portraits/women/75.jpg',
+      name: 'Sichel',
+      nameIndex: 'S',
     ),
     const Contact(
-      avatar: 'https://randomuser.me/api/portraits/men/45.jpg',
-      name: 'Adam',
-      nameIndex: 'A',
+      avatar: 'https://randomuser.me/api/portraits/women/35.jpg',
+      name: 'Nereen',
+      nameIndex: 'N',
     ),
     const Contact(
-      avatar: 'https://randomuser.me/api/portraits/men/7.jpg',
-      name: 'Michel',
-      nameIndex: 'M',
+      avatar: 'https://randomuser.me/api/portraits/women/64.jpg',
+      name: 'Lack Ma',
+      nameIndex: 'L',
     ),
     const Contact(
-      avatar: 'https://randomuser.me/api/portraits/men/35.jpg',
-      name: 'Green',
-      nameIndex: 'G',
+      avatar: 'https://randomuser.me/api/portraits/women/86.jpg',
+      name: 'Xeom',
+      nameIndex: 'X',
+    ),
+     const Contact(
+      avatar: 'http://img3.duitang.com/uploads/item/201412/10/20141210170630_ZzFsN.png',
+      name: '高圆圆',
+      nameIndex: 'F',
     ),
     const Contact(
-      avatar: 'https://randomuser.me/api/portraits/men/64.jpg',
-      name: 'Jack Ma',
-      nameIndex: 'J',
-    ),
-    const Contact(
-      avatar: 'https://randomuser.me/api/portraits/men/86.jpg',
-      name: 'Tom',
-      nameIndex: 'T',
+      avatar: 'http://images.liqucn.com/img/h1/h972/img201709221452570_info300X300.jpg',
+      name: '陈奕迅',
+      nameIndex: 'C',
     ),
   ];
 
   static List<Contact> mockData() {
-    return ContactsPageData().contactsList;
+    List<Contact> list =ContactsPageData().contactsList;
+    list.sort((left,right) => left.nameIndex.compareTo(right.nameIndex));
+    //第一种胖括号语法的完整表达方式如下
+    // list.sort((left,right){
+    //   return left.nameIndex.compareTo(right.name);
+    // });
+
+    return list;
   }
+
+
   static List<Contact> mockFunctionData() {
     return ContactsPageData().functionContacts;
   }

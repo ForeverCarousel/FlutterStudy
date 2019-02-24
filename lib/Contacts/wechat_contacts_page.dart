@@ -66,7 +66,7 @@ class ContactList extends StatelessWidget {
           return _contactItems[index-_functionItems.length];
         }
       },
-      itemCount: this.contactsListData.length,
+      itemCount: this.contactsListData.length + this.functionListData.length,
     );
   }
 }
@@ -78,15 +78,45 @@ class _ContactItem extends StatelessWidget {
     this.contact,
   }):assert(contact != null);
   
-  @override
-  Widget build(BuildContext context) {
+  
+  //为了添加索引header cell区分为两种形式
+  Widget _buildMainItem(){
     Image _avatar;
     if (this.contact.avatar.startsWith('http') || this.contact.avatar.startsWith('https')) {
       _avatar =Image.network(this.contact.avatar,width: 36.0,height: 36.0);
     }else{
       _avatar =Image.asset(this.contact.avatar,width: 36.0,height: 36.0);
     }
+    return Row(
+      children: <Widget>[
+      ClipRRect(
+        borderRadius: BorderRadius.circular(4.0),
+        child: _avatar,
+      ),
+      SizedBox(width: 10,),
+      Text(
+        this.contact.name,
+        style:TextStyle(fontSize: 14,
+        color: Colors.black)
+      ),
+      ],
+    );
+  }
 
+  Widget _buildFixedItem() {
+    return Column(
+      children: <Widget>[
+        Container(
+          color: Colors.orange,
+          child: Text(this.contact.nameIndex != null? this.contact.nameIndex : ""),
+        ),
+        _buildMainItem()
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(left: 16,right: 0.0),//修改的是自己距离父容器的编剧 这里可以理解为cell的宽度被修改了
       padding: const EdgeInsets.symmetric(vertical: 10.0),//这里修改的是cell中子控件的显示范围 这里是指的cell中的子控件距离上边边距都为10
@@ -95,22 +125,7 @@ class _ContactItem extends StatelessWidget {
           bottom: BorderSide(width: 0.2,color: Color(0xff888888))
         )
       ),
-      child: Row(
-        children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4.0),
-            child: _avatar,
-          ),
-          
-          SizedBox(width: 10,),
-          Text(
-            this.contact.name,
-            style:TextStyle(fontSize: 14,
-            color: Colors.black)
-          ),
-           
-        ],
-      ),
+      child: _buildFixedItem()
     );
   }
 }
