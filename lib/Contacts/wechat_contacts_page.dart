@@ -33,8 +33,8 @@ class _WechatContactPageState extends State<WechatContactPage> {
           ),
           Positioned(
             right: 0.0,
-            top: 0.0,
-            bottom: 0.0,
+            top:(context.size.height - _indexLetters.length*20.0)/2.0,
+            height: _indexLetters.length*20.0,
             child: _IndexBar(data: List.from(_indexLetters)),
           )
         ],
@@ -145,7 +145,7 @@ class _ContactItem extends StatelessWidget {
       children: <Widget>[
         Container(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
-          height: 24.0,
+          height: 28.0,
           alignment: Alignment.centerLeft,
           color: Color(0xffebebeb),
           child: Text(
@@ -195,7 +195,7 @@ class _IndexBar extends StatelessWidget {
     return Container(
       width: 24.0,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children:_buildItems()
       ),
