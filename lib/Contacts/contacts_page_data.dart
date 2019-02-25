@@ -98,6 +98,16 @@ class ContactsPageData {
       name: 'Adam',
       nameIndex: 'A',
     ),
+     const Contact(
+      avatar: 'https://randomuser.me/api/portraits/women/33.jpg',
+      name: 'Alinna',
+      nameIndex: 'A',
+    ),
+     const Contact(
+      avatar: 'https://randomuser.me/api/portraits/women/77.jpg',
+      name: 'Anna Hefier',
+      nameIndex: 'A',
+    ),
     const Contact(
       avatar: 'https://randomuser.me/api/portraits/men/7.jpg',
       name: 'Michel',
@@ -165,7 +175,6 @@ class ContactsPageData {
 
     return list;
   }
-
 
   static List<Contact> mockFunctionData() {
     return ContactsPageData().functionContacts;

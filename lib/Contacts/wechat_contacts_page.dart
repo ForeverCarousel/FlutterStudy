@@ -10,8 +10,14 @@ class WechatContactPage extends StatefulWidget {
 }
 
 class _WechatContactPageState extends State<WechatContactPage> {
+  //生成索引数组
+  final Set<String> _indexLetters = Set<String>();
+  
   @override
   Widget build(BuildContext context) {
+    for (var i = 0; i < ContactsPageData.mockData().length; i++) {
+      _indexLetters.add(ContactsPageData.mockData()[i].nameIndex);
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(WechatColors.WechatAppbarColor),
@@ -19,10 +25,20 @@ class _WechatContactPageState extends State<WechatContactPage> {
         elevation: 0.0, //取消bar底部material风格的滚动标示图产生的阴影
         centerTitle: true,
       ),
-      body: ContactList(
-        contactsListData: ContactsPageData.mockData(),
-        functionListData: ContactsPageData.mockFunctionData(),
-        ),
+      body: Stack(
+        children: <Widget>[
+          ContactList(
+            contactsListData: ContactsPageData.mockData(),
+            functionListData: ContactsPageData.mockFunctionData(),
+          ),
+          Positioned(
+            right: 0.0,
+            top: 0.0,
+            bottom: 0.0,
+            child: _IndexBar(data: List.from(_indexLetters)),
+          )
+        ],
+      )
     );
   }
 }
@@ -46,7 +62,12 @@ class ContactList extends StatelessWidget {
   Widget build(BuildContext context) {
     //构建联系人cells
     for (var i = 0; i < this.contactsListData.length; i++) {
-      _ContactItem item = _ContactItem(contact: this.contactsListData[i]);
+       bool _needHeader = true;
+      //如果第下一个的nameIndex 和当前不一样则增加一个header
+      if (i >= 1 && this.contactsListData[i].nameIndex == this.contactsListData[i - 1].nameIndex) {
+        _needHeader = false;
+      }
+      _ContactItem item = _ContactItem(contact: this.contactsListData[i], needHeader: _needHeader);
       _contactItems.add(item);
     }
     //构建功能区cells
@@ -74,49 +95,29 @@ class ContactList extends StatelessWidget {
 //联系人item
 class _ContactItem extends StatelessWidget {
   final Contact contact;
+  final bool needHeader;
   _ContactItem({
     this.contact,
+    this.needHeader = false//默认不显示
   }):assert(contact != null);
   
-  
+  bool isNetImage(){
+    if (this.contact.avatar.startsWith('http') || this.contact.avatar.startsWith('https')) {
+      return true;
+    }else{
+      return false;
+    }
+  }
+  bool needSectionHeader() {
+    return this.contact.nameIndex != null && this.needHeader;
+  } 
   //为了添加索引header cell区分为两种形式
   Widget _buildMainItem(){
-    Image _avatar;
-    if (this.contact.avatar.startsWith('http') || this.contact.avatar.startsWith('https')) {
-      _avatar =Image.network(this.contact.avatar,width: 36.0,height: 36.0);
-    }else{
-      _avatar =Image.asset(this.contact.avatar,width: 36.0,height: 36.0);
-    }
-    return Row(
-      children: <Widget>[
-      ClipRRect(
+    Image _avatar = this.isNetImage()? Image.network(this.contact.avatar,width: 36.0,height: 36.0):Image.asset(this.contact.avatar,width: 40.0,height: 40.0);
+    Widget _rrAvatar = ClipRRect(
         borderRadius: BorderRadius.circular(4.0),
         child: _avatar,
-      ),
-      SizedBox(width: 10,),
-      Text(
-        this.contact.name,
-        style:TextStyle(fontSize: 14,
-        color: Colors.black)
-      ),
-      ],
     );
-  }
-
-  Widget _buildFixedItem() {
-    return Column(
-      children: <Widget>[
-        Container(
-          color: Colors.orange,
-          child: Text(this.contact.nameIndex != null? this.contact.nameIndex : ""),
-        ),
-        _buildMainItem()
-      ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(left: 16,right: 0.0),//修改的是自己距离父容器的编剧 这里可以理解为cell的宽度被修改了
       padding: const EdgeInsets.symmetric(vertical: 10.0),//这里修改的是cell中子控件的显示范围 这里是指的cell中的子控件距离上边边距都为10
@@ -125,7 +126,80 @@ class _ContactItem extends StatelessWidget {
           bottom: BorderSide(width: 0.2,color: Color(0xff888888))
         )
       ),
-      child: _buildFixedItem()
+      child: Row(
+        children: <Widget>[
+          _rrAvatar,
+          SizedBox(width: 10),
+          Text(
+            this.contact.name,
+            style:TextStyle(fontSize: 14,
+            color: Colors.black)
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFixedItem() {
+    return Column(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          height: 24.0,
+          alignment: Alignment.centerLeft,
+          color: Color(0xffebebeb),
+          child: Text(
+            this.contact.nameIndex != null? this.contact.nameIndex : "",
+            style: TextStyle(fontSize: 14.0,color: Color(0xff888888)),
+            ),
+        ),
+        _buildMainItem()
+      ],
+    );
+  }
+
+  Widget _finalItme() {
+    if (this.needSectionHeader()) {
+      return _buildFixedItem();
+    }else{
+      return _buildMainItem();
+
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _finalItme();
+  }
+}
+class _IndexBar extends StatelessWidget {
+  _IndexBar({
+    this.data
+  });
+  final List<String> data;
+  List<Widget> _buildItems(){
+    var listItems = List<Widget>();
+    for (var i = 0; i < data.length; i++) {
+      Text item =Text(
+        this.data[i],
+        style: TextStyle(fontSize: 14,color: Colors.red),
+      );
+      listItems.add(item);
+    }
+    return listItems;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Container(
+      width: 24.0,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children:_buildItems()
+      ),
+      color: Colors.lightBlue,
     );
   }
 }
