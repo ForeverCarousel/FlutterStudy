@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Common/wechat_constant.dart' show WechatColors, WechatIcons;
-import 'wechat_recent_session.dart'
-    show WechatRecentSession, WechatRecentSessionPageData;
+import 'wechat_recent_session.dart' show WechatRecentSession, WechatRecentSessionPageData;
 
 // import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -66,7 +65,11 @@ class _WechatHomePageState extends State<WechatHomePage> {
   PopupMenuButton _buildPopmenuBtn() {
     return PopupMenuButton(
       // icon:Icon(IconData(0xe65e, fontFamily: WechatIcons.WechatIconFontFamily)),
-      icon: Icon(IconData(0xe658,fontFamily: WechatIcons.WechatIconFontFamily)),
+      icon: Icon(
+        IconData(0xe658,
+        fontFamily: WechatIcons.WechatIconFontFamily),
+        size: 20.0
+      ),
       offset: Offset(0, 60.0),
       onSelected: (index) {
         print(index);
@@ -74,7 +77,7 @@ class _WechatHomePageState extends State<WechatHomePage> {
       itemBuilder: (BuildContext context) {
         return <PopupMenuEntry<WechatHomePopmenuAction>>[
           //PopupMenuItem继承自PopupMenuEntry
-          PopupMenuItem(
+          PopupMenuItem( 
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -98,7 +101,8 @@ class _WechatHomePageState extends State<WechatHomePage> {
                 Icon(
                     IconData(0xe638,
                         fontFamily: WechatIcons.WechatIconFontFamily),
-                    color: const Color(WechatColors.WechatAppbarMenuTextColor)),
+                    color: const Color(WechatColors.WechatAppbarMenuTextColor)
+                ),
                 Container(
                   width: 16,
                 ),
@@ -201,8 +205,8 @@ class _WechaHomeListCellState extends State<WechaHomeListCell> {
     this.session,
     this.clickCallback
   }) : assert(session != null);
-  final HomeCellClickFunc clickCallback;
 
+  final HomeCellClickFunc clickCallback;
   final WechatRecentSession session;
 
   @override

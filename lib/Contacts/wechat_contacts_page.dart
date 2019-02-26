@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/Common/wechat_constant.dart' show WechatColors;
 import 'contacts_page_data.dart' show Contact, ContactsPageData;
+import '../Common/wechat_constant.dart' show WechatIcons;
 
 /* 
  页面的内容全部有model层ContactsPageData驱动 有些地方的数据初始化由于不太熟悉dart的语法后续还需要优化 cxl_2019.02.22  
@@ -14,43 +15,58 @@ class _WechatContactPageState extends State<WechatContactPage> {
   final Set<String> _indexLetters = Set<String>();
   Color _indexBarColor = Colors.transparent;
   ScrollController _controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     for (var i = 0; i < ContactsPageData.mockData().length; i++) {
       _indexLetters.add(ContactsPageData.mockData()[i].nameIndex);
     }
+    double _indexItemH = 300.0 / _indexLetters.length;
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(WechatColors.WechatAppbarColor),
-          title: Text("联系人"),
-          elevation: 0.0, //取消bar底部material风格的滚动标示图产生的阴影
-          centerTitle: true,
-        ),
-        body: Stack(
-          alignment: AlignmentDirectional.centerEnd,//右侧indexbar居中显示
-          children: <Widget>[
-            ContactList(
-              contactsListData: ContactsPageData.mockData(),
-              functionListData: ContactsPageData.mockFunctionData(),
-              controller: _controller,
-            ),
-            Positioned(
-              right: 0.0,
-              width: 24,
-              height: 350,
-              child: GestureDetector(
+      appBar: AppBar(
+        backgroundColor: Color(WechatColors.WechatAppbarColor),
+        title: Text("联系人"),
+        elevation: 0.0, //取消bar底部material风格的滚动标示图产生的阴影
+        centerTitle: true,
+        actions: <Widget>[
+          Icon(
+            IconData(0xe638, fontFamily: WechatIcons.WechatIconFontFamily),
+            color: const Color(WechatColors.WechatAppbarMenuTextColor),
+            size: 26.0,
+          ),
+          SizedBox(width: 15)
+        ],
+      ),
+      body: Stack(
+        alignment: AlignmentDirectional.centerEnd, //右侧indexbar居中显示
+        children: <Widget>[
+          ContactList(
+            contactsListData: ContactsPageData.mockData(),
+            functionListData: ContactsPageData.mockFunctionData(),
+            controller: _controller,
+          ),
+          Positioned(
+            right: 0.0,
+            width: 24,
+            height: 300,
+            child: GestureDetector(
                 child: Container(
                   color: _indexBarColor,
                   child: _IndexBar(data: List.from(_indexLetters)),
                 ),
                 onVerticalDragDown: (DragDownDetails details) {
                   setState(() {
-                  _indexBarColor = Colors.black26;
+                    _indexBarColor = Colors.black26;
                   });
                 },
+                //indexbar的总高度为300 内部的item的总个数为_indexLetters.length 可以计算出每个占据的高度
                 onVerticalDragUpdate: (DragUpdateDetails details) {
-                  print('delta ====== ${details.delta}');
-                  // print('position====== ${details.globalPosition}');
+                  if (details.globalPosition.dy <= 350) {
+                    double deltaY = details.globalPosition.dy;
+                    double currentIndex = deltaY % _indexItemH;
+                    print('position ====== $currentIndex');
+                  }
+                  
                 },
                 onVerticalDragEnd: (DragEndDetails details) {
                   setState(() {
@@ -63,9 +79,10 @@ class _WechatContactPageState extends State<WechatContactPage> {
                   });
                 },
               )
-            )
-          ],
-        ));
+          )
+        ],
+      )
+    );
   }
 }
 
@@ -74,11 +91,11 @@ class ContactList extends StatelessWidget {
   final List<Contact> contactsListData;
   final List<Contact> functionListData;
   final ScrollController controller;
-  ContactList({
-    @required this.contactsListData,
-    @required this.functionListData,
-    this.controller
-    }): assert(contactsListData != null);
+  ContactList(
+      {@required this.contactsListData,
+      @required this.functionListData,
+      this.controller})
+      : assert(contactsListData != null);
 
   //联系人cells
   final List _contactItems = List<_ContactItem>();
@@ -91,13 +108,13 @@ class ContactList extends StatelessWidget {
     for (var i = 0; i < this.contactsListData.length; i++) {
       bool _needHeader = true;
       //如果第下一个的nameIndex 和当前不一样则增加一个header
-      if (i >= 1 &&
-          this.contactsListData[i].nameIndex ==
-              this.contactsListData[i - 1].nameIndex) {
+      if (i >= 1 && this.contactsListData[i].nameIndex == this.contactsListData[i - 1].nameIndex) {
         _needHeader = false;
       }
       _ContactItem item = _ContactItem(
-          contact: this.contactsListData[i], needHeader: _needHeader);
+        contact: this.contactsListData[i],
+        needHeader: _needHeader
+      );
       _contactItems.add(item);
     }
     //构建功能区cells
@@ -206,9 +223,7 @@ class _ContactItem extends StatelessWidget {
 
 //构建右侧indexbar
 class _IndexBar extends StatelessWidget {
-  _IndexBar({
-    this.data
-  });
+  _IndexBar({this.data});
   final List<String> data;
 
   List<Widget> _buildItems() {
@@ -222,13 +237,12 @@ class _IndexBar extends StatelessWidget {
     }
     return listItems;
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: _buildItems()
-    );
+        children: _buildItems());
   }
 }
-
