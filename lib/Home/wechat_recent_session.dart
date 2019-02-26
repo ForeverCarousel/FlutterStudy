@@ -35,7 +35,6 @@ class WechatRecentSessionPageData {
         super();
 
   final List<WechatRecentSession> sessionList;
-  
   static List<WechatRecentSession> mockSessionList = [
     const WechatRecentSession(
       avatar: 'assets/images/ic_file_transfer.png',
