@@ -10,17 +10,22 @@ dependencies:
     
   pull_to_refresh: ^1.1.5
   cupertino_icons: ^0.1.2
-
+  http: ^0.12.0
+    
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 flutter:
   uses-material-design: true
+
+  //字体资源文件配置
   fonts:
     - family: WechatIconFontFamily
       fonts:
         - asset: assets/fonts/iconfont.ttf
+  
+  //图片资源配置
   assets:
     - assets/images/ic_file_transfer.png
     - assets/images/ic_fengchao.png
