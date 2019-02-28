@@ -19,13 +19,13 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  //字体资源文件配置
+  #字体资源文件配置
   fonts:
     - family: WechatIconFontFamily
       fonts:
         - asset: assets/fonts/iconfont.ttf
   
-  //图片资源配置
+  #图片资源配置
   assets:
     - assets/images/ic_file_transfer.png
     - assets/images/ic_fengchao.png

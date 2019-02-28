@@ -156,7 +156,7 @@ class ContactsPageData {
      const Contact(
       avatar: 'http://img3.duitang.com/uploads/item/201412/10/20141210170630_ZzFsN.png',
       name: '高圆圆',
-      nameIndex: 'F',
+      nameIndex: 'G',
     ),
     const Contact(
       avatar: 'http://images.liqucn.com/img/h1/h972/img201709221452570_info300X300.jpg',
