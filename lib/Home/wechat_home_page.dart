@@ -39,8 +39,9 @@ class _WechatHomePageState extends State<WechatHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(WechatColors.WechatAppbarColor),
-        title: Text("微信"),
+        // backgroundColor: Color(WechatColors.WechatAppbarColor),
+        backgroundColor: Colors.white,
+        title: Text("微信",style: TextStyle(fontSize: 18.0,fontWeight:FontWeight.bold , color: Colors.black)),
         elevation: 0.0, //取消bar底部material风格的滚动标示图产生的阴影
         centerTitle: true,
         actions: <Widget>[_buildPopmenuBtn()],
@@ -66,9 +67,11 @@ class _WechatHomePageState extends State<WechatHomePage> {
     return PopupMenuButton(
       // icon:Icon(IconData(0xe65e, fontFamily: WechatIcons.WechatIconFontFamily)),
       icon: Icon(
-        IconData(0xe658,
-        fontFamily: WechatIcons.WechatIconFontFamily),
-        size: 20.0
+          IconData(
+          0xe658,
+          fontFamily: WechatIcons.WechatIconFontFamily),
+          size: 20.0,
+          color: Colors.black54
       ),
       offset: Offset(0, 60.0),
       onSelected: (index) {

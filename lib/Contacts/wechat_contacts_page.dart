@@ -24,14 +24,14 @@ class _WechatContactPageState extends State<WechatContactPage> {
     double _indexItemH = 300.0 / _indexLetters.length;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(WechatColors.WechatAppbarColor),
-        title: Text("联系人"),
+        backgroundColor: Colors.white,
+        title: Text("联系人",style: TextStyle(fontSize: 18.0,fontWeight:FontWeight.bold , color: Colors.black)),
         elevation: 0.0, //取消bar底部material风格的滚动标示图产生的阴影
         centerTitle: true,
         actions: <Widget>[
           Icon(
             IconData(0xe638, fontFamily: WechatIcons.WechatIconFontFamily),
-            color: const Color(WechatColors.WechatAppbarMenuTextColor),
+            color: Colors.black54,
             size: 26.0,
           ),
           SizedBox(width: 15)

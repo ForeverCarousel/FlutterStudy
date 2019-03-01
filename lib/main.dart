@@ -22,6 +22,7 @@ class WechatApp extends StatelessWidget {//runapp方法需要传入一个Widget�
       title: "微信",
       theme: ThemeData.light().copyWith(
         cardColor:Color(WechatColors.WechatAppbarColor) 
+        // cardColor:Colors.white
       ),
       home:WechatRootContainer()
     );
