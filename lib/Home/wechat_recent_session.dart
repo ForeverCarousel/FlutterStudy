@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
+
 class WechatRecentSession {
   const WechatRecentSession(
       {@required this.avatar,

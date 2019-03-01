@@ -63,7 +63,7 @@ class _WechatContactPageState extends State<WechatContactPage> {
                 onVerticalDragUpdate: (DragUpdateDetails details) {
                   if (details.globalPosition.dy <= 350) {
                     double deltaY = details.globalPosition.dy;
-                    double currentIndex = deltaY % _indexItemH;
+                    int currentIndex = deltaY ~/ _indexItemH;
                     print('position ====== $currentIndex');
                   }
                   
@@ -170,21 +170,20 @@ class _ContactItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(4.0),
       child: _avatar,
     );
-    return Container(
-      margin: const EdgeInsets.only(
-          left: 16, right: 0.0), //修改的是自己距离父容器的编剧 这里可以理解为cell的宽度被修改了
-      padding: const EdgeInsets.symmetric(
-          vertical: 10.0), //这里修改的是cell中子控件的显示范围 这里是指的cell中的子控件距离上边边距都为10
-      decoration: BoxDecoration(
-          border:
-              Border(bottom: BorderSide(width: 0.2, color: Color(0xff888888)))),
-      child: Row(
-        children: <Widget>[
-          _rrAvatar,
-          SizedBox(width: 10),
-          Text(this.contact.name,
-              style: TextStyle(fontSize: 14, color: Colors.black)),
-        ],
+    return FlatButton(
+      onPressed: (){},
+      child: Container(
+        margin: const EdgeInsets.only(left: 16, right: 0.0), //修改的是自己距离父容器的编剧 这里可以理解为cell的宽度被修改了
+        padding: const EdgeInsets.symmetric(vertical: 10.0), //这里修改的是cell中子控件的显示范围 这里是指的cell中的子控件距离上边边距都为10
+        decoration: BoxDecoration(border:Border(bottom: BorderSide(width: 0.2, color: Color(0xff888888)))),
+        child: Row(
+          children: <Widget>[
+            _rrAvatar,
+            SizedBox(width: 10),
+            Text(this.contact.name,
+                style: TextStyle(fontSize: 14, color: Colors.black)),
+          ],
+        ),
       ),
     );
   }
