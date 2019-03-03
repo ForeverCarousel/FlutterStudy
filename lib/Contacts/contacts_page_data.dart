@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Contact {
-  const Contact({
-    this.avatar,
-    this.name,
-    this.nameIndex,
-    this.onPressed
-  }):assert(avatar != null),
-    assert(name != null);
+  const Contact({this.avatar, this.name, this.nameIndex, this.onPressed})
+      : assert(avatar != null),
+        assert(name != null);
 
   final String avatar;
   final String name;
@@ -15,31 +11,33 @@ class Contact {
   final VoidCallback onPressed;
 }
 
-
 class ContactsPageData {
-
   //功能区数据
   final List<Contact> functionContacts = [
     Contact(
-      avatar: 'assets/images/ic_new_friend.png',
-      name: '新的朋友',
-      onPressed: () { print('添加新朋友。'); }
-    ),
+        avatar: 'assets/images/ic_new_friend.png',
+        name: '新的朋友',
+        onPressed: () {
+          print('添加新朋友。');
+        }),
     Contact(
-      avatar: 'assets/images/ic_group_chat.png',
-      name: '群聊',
-      onPressed: () { print('点击了群聊。'); }
-    ),
+        avatar: 'assets/images/ic_group_chat.png',
+        name: '群聊',
+        onPressed: () {
+          print('点击了群聊。');
+        }),
     Contact(
-      avatar: 'assets/images/ic_tag.png',
-      name: '标签',
-      onPressed: () { print('标签。'); }
-    ),
+        avatar: 'assets/images/ic_tag.png',
+        name: '标签',
+        onPressed: () {
+          print('标签。');
+        }),
     Contact(
-      avatar: 'assets/images/ic_public_account.png',
-      name: '公众号',
-      onPressed: () { print('添加公众号。'); }
-    ),
+        avatar: 'assets/images/ic_public_account.png',
+        name: '公众号',
+        onPressed: () {
+          print('添加公众号。');
+        }),
   ];
   //联系人数据
   final List<Contact> contactsList = [
@@ -98,12 +96,12 @@ class ContactsPageData {
       name: 'Adam',
       nameIndex: 'A',
     ),
-     const Contact(
+    const Contact(
       avatar: 'https://randomuser.me/api/portraits/women/33.jpg',
       name: 'Alinna',
       nameIndex: 'A',
     ),
-     const Contact(
+    const Contact(
       avatar: 'https://randomuser.me/api/portraits/women/77.jpg',
       name: 'Anna Hefier',
       nameIndex: 'A',
@@ -153,21 +151,23 @@ class ContactsPageData {
       name: 'Xeom',
       nameIndex: 'X',
     ),
-     const Contact(
-      avatar: 'http://img3.duitang.com/uploads/item/201412/10/20141210170630_ZzFsN.png',
+    const Contact(
+      avatar:
+          'http://img3.duitang.com/uploads/item/201412/10/20141210170630_ZzFsN.png',
       name: '高圆圆',
       nameIndex: 'G',
     ),
     const Contact(
-      avatar: 'http://images.liqucn.com/img/h1/h972/img201709221452570_info300X300.jpg',
+      avatar:
+          'http://images.liqucn.com/img/h1/h972/img201709221452570_info300X300.jpg',
       name: '陈奕迅',
       nameIndex: 'C',
     ),
   ];
 
   static List<Contact> mockData() {
-    List<Contact> list =ContactsPageData().contactsList;
-    list.sort((left,right) => left.nameIndex.compareTo(right.nameIndex));
+    List<Contact> list = ContactsPageData().contactsList;
+    list.sort((left, right) => left.nameIndex.compareTo(right.nameIndex));
     //第一种胖括号语法的完整表达方式如下
     // list.sort((left,right){
     //   return left.nameIndex.compareTo(right.name);
@@ -179,5 +179,4 @@ class ContactsPageData {
   static List<Contact> mockFunctionData() {
     return ContactsPageData().functionContacts;
   }
-  
 }

@@ -173,7 +173,7 @@ class _ContactItem extends StatelessWidget {
     return FlatButton(
       onPressed: (){},
       child: Container(
-        margin: const EdgeInsets.only(left: 16, right: 0.0), //修改的是自己距离父容器的编剧 这里可以理解为cell的宽度被修改了
+        margin: const EdgeInsets.only(left: 0.0, right: 0.0), //修改的是自己距离父容器的编剧 这里可以理解为cell的宽度被修改了
         padding: const EdgeInsets.symmetric(vertical: 10.0), //这里修改的是cell中子控件的显示范围 这里是指的cell中的子控件距离上边边距都为10
         decoration: BoxDecoration(border:Border(bottom: BorderSide(width: 0.2, color: Color(0xff888888)))),
         child: Row(

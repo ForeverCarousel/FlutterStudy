@@ -24,6 +24,7 @@ class WechatApp extends StatelessWidget {//runapp方法需要传入一个Widget�
         cardColor:Color(WechatColors.WechatAppbarColor) 
         // cardColor:Colors.white
       ),
+      // routes: null,
       home:WechatRootContainer()
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Common/wechat_constant.dart' show WechatColors, WechatIcons;
 import 'wechat_recent_session.dart' show WechatRecentSession, WechatRecentSessionPageData;
+import 'wechat_session_page.dart';
 
 // import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -28,11 +29,23 @@ class _WechatHomePageState extends State<WechatHomePage> {
         session: listSession[i],
         clickCallback: (TapUpDetails detail) {
           print("点击了第${i+1}行");
+          _jumpToSessionPage(this.listSession[i].title);        
         },
       );
       listCells.add(cell);
     }
     super.initState();
+  }
+
+  //跳转页面
+  void _jumpToSessionPage(String title){
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          return WechatSessionPage(title: title);
+        }
+      )
+    );
   }
   
   @override
