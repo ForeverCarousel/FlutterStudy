@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Contact {
-  const Contact({this.avatar, this.name, this.nameIndex, this.onPressed})
-      : assert(avatar != null),
+  const Contact({
+    this.avatar,
+    this.name, 
+    this.nameIndex, 
+    this.onPressed
+  }): assert(avatar != null),
         assert(name != null);
 
   final String avatar;
