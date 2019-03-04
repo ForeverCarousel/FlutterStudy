@@ -27,11 +27,11 @@ class WechatSessionPage extends StatelessWidget {
           )
         ],
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xffebebeb),
       body: SafeArea(
         child:  Column(//分为两部分 第一部分是回话内容list 第二部分是输入框控件
           children: <Widget>[
-            Divider(height: 1,color: Colors.grey,),
+            Divider(height: 0.5,color: Color(0xffebebeb)),
             Expanded(
               child: Container(
                 color: Colors.white,

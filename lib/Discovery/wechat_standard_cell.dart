@@ -15,7 +15,7 @@ class WechatStandardCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      onPressed: (){},
+      onPressed: this.onPressed,
       // child:// Container(
       color: Colors.white,
       child: Container(

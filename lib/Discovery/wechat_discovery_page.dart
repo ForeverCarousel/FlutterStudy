@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/Common/wechat_constant.dart' show WechatColors;
+
 import 'wechat_standard_cell.dart';
+import 'discovery_news.dart' show DiscoveryNewsPage;
 
 class WechatDiscoveryPage extends StatelessWidget {
   static const SEPARATE_SIZE = 10.0;
+
+  testTapAction() {
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +29,28 @@ class WechatDiscoveryPage extends StatelessWidget {
             WechatStandardCell(
               iconPath: 'assets/images/ic_social_circle.png',
               title: '朋友圈',
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                      return AlertDialog(
+                        title: Text('提示'),
+                        content: Text('你有没有朋友难道心里没点*数么?'),
+                        actions: <Widget>[
+                          FlatButton(child: Text("取消"), onPressed: (){Navigator.of(context).pop();}),
+                          FlatButton(child: Text("确认"), onPressed: (){Navigator.of(context).pop();})
+                        ],
+                      );
+                  },
+                );
+              },
             ),
             SizedBox(height: SEPARATE_SIZE),
             WechatStandardCell(
               iconPath: 'assets/images/ic_quick_scan.png',
               title: '扫一扫',
               showDivider: true,
-              onPressed: () {
-                print('点击了扫一扫');
-              },
+              onPressed: () {},
             ),
             Divider(indent: 50.0,height: 1.0,color: Color(0xffd9d9d9)),
             WechatStandardCell(
@@ -47,7 +63,16 @@ class WechatDiscoveryPage extends StatelessWidget {
               iconPath: 'assets/images/ic_feeds.png',
               title: '看一看',
               showDivider: true,
-              onPressed: () {},
+              onPressed: () {
+                print('点击了看一看');
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder:(BuildContext context) {
+                      return DiscoveryNewsPage();
+                    } 
+                  )
+                );
+              },
             ),
             Divider(indent: 50.0,height: 1.0,color: Color(0xffd9d9d9)),
             WechatStandardCell(

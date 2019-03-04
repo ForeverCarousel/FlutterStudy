@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/Common/wechat_constant.dart' show WechatColors;
 import 'contacts_page_data.dart' show Contact, ContactsPageData;
 import '../Common/wechat_constant.dart' show WechatIcons;
 

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/Common/wechat_constant.dart' show WechatColors;
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 import '../Discovery/wechat_standard_cell.dart';
 
 class WechatProfilePage extends StatelessWidget {
@@ -14,49 +12,21 @@ class WechatProfilePage extends StatelessWidget {
       color: Colors.white,
       child: Row(
         children: <Widget>[
-          Image.asset(
-            'assets/images/user_avatar.png',
-            width: 60,
-            height: 60,
-          ),
+          Image.asset('assets/images/user_avatar.png', width: 60, height: 60),
           SizedBox(width: 15.0),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('陈奕迅',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w300)),
+                Text('陈奕迅',style:TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 Text('微信号:Eason Chan'),
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-
-              Text('陈奕迅',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300)),
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text('微信号:Eason Chan'),
-                  SizedBox(width: 90),
-                  Icon(Icons.camera),
-                  SizedBox(width: 5),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.grey,
-                    size: 14,
-                  )
-                ],
-              )
-              Icon(Icons.camera),
-              SizedBox(width: 5),
-              Icon(Icons.arrow_forward_ios,color: Colors.grey,size: 14,)
-            ],
-          )
+          Icon(Icons.camera,color: Colors.grey,size: 24),
+          SizedBox(width: 5),
+          Icon(Icons.arrow_forward_ios,color: Colors.grey,size: 15,)
         ],
       ),
     );
