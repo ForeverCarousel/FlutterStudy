@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+//http://api.douban.com/v2/movie/top250?start=0&count=1 豆瓣开放API
 class DiscoveryNewsPage extends StatefulWidget {
   final Widget child;
 
@@ -11,6 +13,13 @@ class DiscoveryNewsPage extends StatefulWidget {
 }
 
 class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
+  final int currentPage = 1;
+  final int 
+  Future _requestData() async {
+      String urlStr = 'http://api.douban.com/v2/movie/top250?start=0&count=1';
+  }
+ 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +31,21 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
         leading: BackButton(
           color: Colors.black,
         ),
-      )
+      ),
+      body: GridView.builder(
+        padding: EdgeInsets.all(5.0),
+        scrollDirection: Axis.vertical,
+        itemCount: 20,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          childAspectRatio: 0.5
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return Container(child: Center(child: Text((index+1).toString())),color: Colors.lightBlue,) ;
+        },
+      ),
     );
   }
 }
