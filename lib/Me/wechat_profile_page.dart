@@ -10,7 +10,7 @@ class WechatProfilePage extends StatelessWidget {
   Widget _infoCard() {
     return Container(
       height: 100,
-      padding: EdgeInsets.fromLTRB(16, 20, 10, 20),
+      padding: EdgeInsets.fromLTRB(16, 20, 16, 20),
       color: Colors.white,
       child: Row(
         children: <Widget>[
@@ -20,10 +20,21 @@ class WechatProfilePage extends StatelessWidget {
             height: 60,
           ),
           SizedBox(width: 15.0),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('陈奕迅',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w300)),
+                Text('微信号:Eason Chan'),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+
               Text('陈奕迅',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300)),
               Row(
@@ -41,6 +52,9 @@ class WechatProfilePage extends StatelessWidget {
                   )
                 ],
               )
+              Icon(Icons.camera),
+              SizedBox(width: 5),
+              Icon(Icons.arrow_forward_ios,color: Colors.grey,size: 14,)
             ],
           )
         ],
