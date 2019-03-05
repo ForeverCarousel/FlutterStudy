@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+enum PullAction {
+  updateData,
+  loadMore
+}
+
 
 const double ImageRadio = 270/400.0; //这个比例是根据图片实际尺寸的比例;
 //http://api.douban.com/v2/movie/top250?start=0&count=1 豆瓣开放API
@@ -15,9 +22,11 @@ class DiscoveryNewsPage extends StatefulWidget {
 
 class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
 
-  final int _currentPage = 1;
-  final int _queryDataCount = 20;
+  int _currentPage = 1;
+  final int _queryDataCount = 10;
   List<MovieModel> listData = List();
+  List<MovieModel> totalListData = List();
+
   bool isloading = false;//用于控制显示loading还是请求完成后显示表内容
 //loading控件
   final _loadingProgress = Container(
@@ -53,10 +62,17 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
   } 
 
 //请求数据
-  _requestData() async {
+  dynamic _requestData({PullAction action}) async {
     setState(() {
       isloading = true;
     });
+    if (action ==PullAction.updateData) {
+        totalListData.removeRange(0, totalListData.length);
+    }else if(action ==PullAction.loadMore){
+      print('加载更多数据');
+      _currentPage += 1;
+    }
+
     HttpClient client = HttpClient();//生成一个client对象 用于管理请求
     String urlStr = 'http://api.douban.com/v2/movie/top250?start=$_currentPage&count=$_queryDataCount';
     Uri uri = Uri.parse(urlStr);//生成URL
@@ -67,7 +83,6 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
     HttpClientRequest request = await client.getUrl(uri);//生成request对象
     HttpClientResponse response = await request.close();//异步等待请求结果 返回数据为HttpClientResponse对象
     if (response.statusCode == HttpStatus.ok) {
-       List<MovieModel> tempListData = List();
       var responseBody = await response.transform(utf8.decoder).join();//异步线程解析成json数据
       Map<String, dynamic> result =json.decode(responseBody);//解码jason生成基本数据类型 具体类型由接口返回数据确定此处为一个map
       List movieData =result['subjects'];//获取电影数据
@@ -76,11 +91,11 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
         String movieName = item['title'];
         String imageUrl =item['images']['large'];
         MovieModel model =MovieModel(movieName: movieName,imageURL: imageUrl);
-        tempListData.add(model); 
+        totalListData.add(model); 
       }
       setState(() {
         isloading = false;
-        this.listData =tempListData;
+        this.listData =totalListData;
       });
     }else{
       setState(() {
@@ -93,7 +108,7 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
 
   @override
   void initState() {
-    _requestData();
+    _requestData(action: PullAction.updateData);
     super.initState();
   }
 
@@ -103,7 +118,7 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
       backgroundColor: Color(0xffebebeb),
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text('电影推荐', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black)),
+        title: Text('电影推荐(${totalListData.length})', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black)),
         elevation: 0.0, //取消bar底部material风格的滚动标示图产生的阴影
         centerTitle: true,
         leading: BackButton(
@@ -114,11 +129,24 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
           Icon(Icons.refresh),
           color: Colors.black,
           onPressed: (){
-            _requestData();
+            _requestData(action: PullAction.updateData);
           },)
         ],
       ),
-      body: this.isloading ? _loadingProgress : _buildGridView()
+      body: this.isloading ? _loadingProgress : 
+        SmartRefresher(
+          enablePullDown: true,
+          enablePullUp: true,
+          onRefresh:(bool up){
+            if (up) {//下拉
+              _requestData(action: PullAction.updateData);
+            }else{//上啦
+              _requestData(action: PullAction.loadMore);
+            }
+          },
+          
+          child: _buildGridView(),
+        ) 
     );
   }
 }
