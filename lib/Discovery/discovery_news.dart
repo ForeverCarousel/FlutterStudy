@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'discover_news_detail_page.dart';
 
 enum PullAction {
   updateData,
@@ -22,10 +23,11 @@ class DiscoveryNewsPage extends StatefulWidget {
 
 class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
 
-  int _currentPage = 1;
+  int _currentPosition = 1;
   final int _queryDataCount = 10;
   List<MovieModel> listData = List();
   List<MovieModel> totalListData = List();
+  RefreshController _refreshController = RefreshController();
 
   bool isloading = false;//用于控制显示loading还是请求完成后显示表内容
 //loading控件
@@ -58,23 +60,24 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
       itemBuilder: (BuildContext context, int index) {
         return _GridTile(model: this.listData[index],tileSize: tileSize);
       },
+      
   );
   } 
 
 //请求数据
   dynamic _requestData({PullAction action}) async {
-    setState(() {
-      isloading = true;
-    });
     if (action ==PullAction.updateData) {
         totalListData.removeRange(0, totalListData.length);
+        _currentPosition = 1;
+        setState(() {
+           isloading = true;
+        });
     }else if(action ==PullAction.loadMore){
-      print('加载更多数据');
-      _currentPage += 1;
+      _currentPosition = totalListData.length + 1;
     }
-
     HttpClient client = HttpClient();//生成一个client对象 用于管理请求
-    String urlStr = 'http://api.douban.com/v2/movie/top250?start=$_currentPage&count=$_queryDataCount';
+    String urlStr = 'http://api.douban.com/v2/movie/top250?start=$_currentPosition&count=$_queryDataCount';
+    print('当前请求URL:$urlStr');
     Uri uri = Uri.parse(urlStr);//生成URL
     /*
      即使外部调用async方法 所有在await之后的方法都回在异步线程里串行执行 但是执行到await时该方法会立即返回
@@ -83,6 +86,7 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
     HttpClientRequest request = await client.getUrl(uri);//生成request对象
     HttpClientResponse response = await request.close();//异步等待请求结果 返回数据为HttpClientResponse对象
     if (response.statusCode == HttpStatus.ok) {
+      print('数据请求成功');
       var responseBody = await response.transform(utf8.decoder).join();//异步线程解析成json数据
       Map<String, dynamic> result =json.decode(responseBody);//解码jason生成基本数据类型 具体类型由接口返回数据确定此处为一个map
       List movieData =result['subjects'];//获取电影数据
@@ -93,10 +97,13 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
         MovieModel model =MovieModel(movieName: movieName,imageURL: imageUrl);
         totalListData.add(model); 
       }
+      
       setState(() {
         isloading = false;
         this.listData =totalListData;
       });
+      //通知refresh控件结果
+      // _refreshController.sendBack(action == PullAction.updateData, RefreshStatus.completed);
     }else{
       setState(() {
         isloading = false;
@@ -135,16 +142,17 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
       ),
       body: this.isloading ? _loadingProgress : 
         SmartRefresher(
+          controller: _refreshController,
           enablePullDown: true,
           enablePullUp: true,
           onRefresh:(bool up){
             if (up) {//下拉
               _requestData(action: PullAction.updateData);
             }else{//上啦
+              print('========== 1111111111');
               _requestData(action: PullAction.loadMore);
             }
           },
-          
           child: _buildGridView(),
         ) 
     );
@@ -177,11 +185,9 @@ class _GridTile extends StatelessWidget {
   _GridTile({Key key, this.model,this.tileSize});
   final MovieModel model;
   final Size tileSize;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
+
+  Widget _buildTile(){
+    return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -195,7 +201,7 @@ class _GridTile extends StatelessWidget {
           SizedBox(height: 5),
           Row(
             children: <Widget>[
-              SizedBox(width: 5),
+              SizedBox(width: 8),
               Text(
                 this.model.movieName,
                 style: TextStyle(
@@ -205,10 +211,48 @@ class _GridTile extends StatelessWidget {
               ),
             ]
           )
-
-          
         ],
+      );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(2)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            offset: Offset(2, 2),
+            blurRadius: 2.0,
+            spreadRadius: 2.0,
+          )
+        ]
       ),
+      // color: Colors.white,
+      child: Material(
+        child: Ink(
+          child: InkResponse(
+            highlightColor: Colors.lightBlueAccent,//点击或者toch控件高亮时显示的控件在控件上层,水波纹下层
+            highlightShape: BoxShape.circle,//点击或者toch控件高亮的shape形状
+            //.InkResponse内部的radius这个需要注意的是，我们需要半径大于控件的宽，如果radius过小，显示的水波纹就是一个很小的圆，
+            radius: 350.0,//水波纹的半径
+            // splashColor: Colors.red,//水波纹的颜色
+            containedInkWell: true,//true表示要剪裁水波纹响应的界面   false不剪裁  如果控件是圆角不剪裁的话水波纹是矩形
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context ){
+                    return DiscoverNewsDetailPage(movieModel: model,);
+                  }
+                )
+              );
+            },
+            child: _buildTile()
+          ),
+        ),
+      )
     );
   }
 }
