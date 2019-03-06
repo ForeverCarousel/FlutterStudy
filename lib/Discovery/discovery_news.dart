@@ -224,9 +224,9 @@ class _GridTile extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.grey,
-            offset: Offset(2, 2),
-            blurRadius: 2.0,
-            spreadRadius: 2.0,
+            offset: Offset(2, 1),
+            blurRadius: 4.0,
+            spreadRadius: 4.0,
           )
         ]
       ),
