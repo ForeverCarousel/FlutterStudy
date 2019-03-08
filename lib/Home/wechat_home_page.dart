@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../Common/wechat_constant.dart' show WechatColors, WechatIcons;
 import 'wechat_recent_session.dart' show WechatRecentSession, WechatRecentSessionPageData;
 import 'wechat_session_page.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 // import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -236,7 +237,15 @@ class _WechaHomeListCellState extends State<WechaHomeListCell> {
           ClipRRect(
             //给头像组建设置圆角 包一层
             borderRadius: BorderRadius.circular(5.0),
-            child: Image.network(session.avatar, width: 48, height: 48),
+            // child: Image.network(session.avatar, width: 48, height: 48),
+            child: CachedNetworkImage(//这个方法可以在自动缓存网络图 还能配置展位图
+              imageUrl: session.avatar,
+              width: 48,
+              height: 48,
+              placeholder:(BuildContext context,String url){
+                return Image.asset('assets/images/default_nor_avatar.png', width: 48, height: 48);
+              },
+            ),
           ),
           Positioned(
             child: unreadIcon,

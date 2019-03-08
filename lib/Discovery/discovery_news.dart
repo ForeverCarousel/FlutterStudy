@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
+import 'dart:convert';
+import 'dart:io';
+
 import 'discover_news_detail_page.dart';
 
 enum PullAction {
@@ -190,12 +193,16 @@ class _GridTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Image.network(
-            this.model.imageURL,
+          CachedNetworkImage(
+            imageUrl: this.model.imageURL,
             fit: BoxFit.fill,
             width: this.tileSize.width,
             height: this.tileSize.height - 35,
+            placeholder: (context,url){
+              return Center(child: Icon(Icons.image));
+            },        
           ),
+
           SizedBox(height: 5),
           Row(
             children: <Widget>[

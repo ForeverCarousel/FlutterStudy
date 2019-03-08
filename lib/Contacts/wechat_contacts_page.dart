@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 import 'contacts_page_data.dart' show Contact, ContactsPageData;
 import '../Common/wechat_constant.dart' show WechatIcons;
 
@@ -165,9 +167,18 @@ class _ContactItem extends StatelessWidget {
 
   //为了添加索引header cell区分为两种形式
   Widget _buildMainItem() {
-    Image _avatar = this.isNetImage()
-        ? Image.network(this.contact.avatar, width: 36.0, height: 36.0)
-        : Image.asset(this.contact.avatar, width: 40.0, height: 40.0);
+    Widget _avatar;
+    if (this.isNetImage()) {
+      _avatar = CachedNetworkImage(
+        imageUrl: this.contact.avatar,
+        placeholder: (BuildContext context, String url) {
+          return Image.asset('assets/images/default_nor_avatar.png', width: 36.0, height: 36.0);
+        },
+      );
+    }else{
+      _avatar = Image.asset(this.contact.avatar, width: 40.0, height: 40.0);
+    }
+   
     Widget _rrAvatar = ClipRRect(
       borderRadius: BorderRadius.circular(4.0),
       child: _avatar,

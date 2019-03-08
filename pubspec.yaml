@@ -10,10 +10,13 @@ dependencies:
     
   pull_to_refresh: ^1.1.5
   cupertino_icons: ^0.1.2
-  http: ^0.12.0
+  http: any
   flutter_spinkit: ^2.1.0 #一个多种样式loading的三方库
-
-    
+  cached_network_image: any #允许缓存图片的三方库 类似于SDWebImage
+  flutter_cache_manager: any #这个傻逼pub竟然还有三方库互相依赖的版本冲突问题-，- 这很不google
+  
+  
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
