@@ -24,7 +24,8 @@ class WechatProfilePage extends StatelessWidget {
               ],
             ),
           ),
-          Icon(Icons.camera,color: Colors.grey,size: 24),
+          // Icon(Icons.camera,color: Colors.grey,size: 24),
+          Image.asset('assets/images/ic_qrcode_preview_tiny.png',width: 24.0,height: 24.0),
           SizedBox(width: 5),
           Icon(Icons.arrow_forward_ios,color: Colors.grey,size: 15,)
         ],
@@ -38,13 +39,13 @@ class WechatProfilePage extends StatelessWidget {
       _infoCard(),
       SizedBox(height: SEPARATE_SIZE),
       WechatStandardCell(
-        iconPath: 'assets/images/ic_social_circle.png',
+        iconPath: 'assets/images/ic_wallet.png',
         title: '支付',
         onPressed: () {},
       ),
       SizedBox(height: SEPARATE_SIZE),
       WechatStandardCell(
-        iconPath: 'assets/images/ic_quick_scan.png',
+        iconPath: 'assets/images/ic_collections.png',
         title: '收藏',
         showDivider: true,
         onPressed: () {
@@ -53,20 +54,20 @@ class WechatProfilePage extends StatelessWidget {
       ),
       Divider(indent: 50.0, height: 1.0, color: Color(0xffd9d9d9)),
       WechatStandardCell(
-        iconPath: 'assets/images/ic_shake_phone.png',
+        iconPath: 'assets/images/ic_album.png',
         title: '相册',
         onPressed: () {},
       ),
       Divider(indent: 50.0, height: 1.0, color: Color(0xffd9d9d9)),
       WechatStandardCell(
-        iconPath: 'assets/images/ic_feeds.png',
+        iconPath: 'assets/images/ic_cards_wallet.png',
         title: '卡包',
         showDivider: true,
         onPressed: () {},
       ),
       Divider(indent: 50.0, height: 1.0, color: Color(0xffd9d9d9)),
       WechatStandardCell(
-        iconPath: 'assets/images/ic_quick_search.png',
+        iconPath: 'assets/images/ic_emotions.png',
         title: '表情',
         onPressed: () {},
       ),

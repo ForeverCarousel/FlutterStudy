@@ -24,7 +24,7 @@ class DiscoveryNewsPage extends StatefulWidget {
 class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
 
   int _currentPosition = 1;
-  final int _queryDataCount = 10;
+  final int _queryDataCount = 100;
   List<MovieModel> listData = List();
   List<MovieModel> totalListData = List();
   RefreshController _refreshController = RefreshController();
@@ -100,7 +100,7 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
       
       setState(() {
         isloading = false;
-        this.listData =totalListData;
+        this.listData = totalListData;
       });
       //通知refresh控件结果
       // _refreshController.sendBack(action == PullAction.updateData, RefreshStatus.completed);
@@ -149,7 +149,6 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
             if (up) {//下拉
               _requestData(action: PullAction.updateData);
             }else{//上啦
-              print('========== 1111111111');
               _requestData(action: PullAction.loadMore);
             }
           },
@@ -196,7 +195,6 @@ class _GridTile extends StatelessWidget {
             fit: BoxFit.fill,
             width: this.tileSize.width,
             height: this.tileSize.height - 35,
-
           ),
           SizedBox(height: 5),
           Row(
@@ -220,7 +218,7 @@ class _GridTile extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(2)),
+        borderRadius: BorderRadius.all(Radius.circular(4)),
         boxShadow: [
           BoxShadow(
             color: Colors.grey,

@@ -28,12 +28,15 @@ class _WechatContactPageState extends State<WechatContactPage> {
         elevation: 0.0, //取消bar底部material风格的滚动标示图产生的阴影
         centerTitle: true,
         actions: <Widget>[
-          Icon(
+          IconButton(
+            icon: Icon(
             IconData(0xe638, fontFamily: WechatIcons.WechatIconFontFamily),
             color: Colors.black54,
             size: 26.0,
-          ),
-          SizedBox(width: 15)
+            ),
+            onPressed: (){},
+          ),          
+          // SizedBox(width: 15)
         ],
       ),
       body: Stack(

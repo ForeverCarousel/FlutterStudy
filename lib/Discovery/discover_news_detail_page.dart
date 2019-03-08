@@ -24,10 +24,11 @@ class _DiscoverNewsDetailPageState extends State<DiscoverNewsDetailPage> with Si
     
     CurvedAnimation curveAnimation = CurvedAnimation(
       parent: _saController,
-      curve: Curves.bounceInOut,
+      curve: Curves.bounceIn,
       reverseCurve: Curves.easeInOutBack
     );
     _scaleAnimation = Tween(begin: 0.0, end: 500.0).animate(curveAnimation)..addListener((){
+                      debugPrint('动画监听回调');
                       setState(() {});
                       })..addStatusListener((status) {
                         if (status == AnimationStatus.completed) {

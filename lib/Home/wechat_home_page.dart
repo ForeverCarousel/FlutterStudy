@@ -102,7 +102,7 @@ class _WechatHomePageState extends State<WechatHomePage> {
                   fontFamily: WechatIcons.WechatIconFontFamily),
                   color: const Color(WechatColors.WechatAppbarMenuTextColor),
                 ),
-                Container(
+                SizedBox(
                   width: 16,
                 ),
                 Text('发起群聊',style: TextStyle(color: const Color(WechatColors.WechatAppbarMenuTextColor)))
@@ -119,7 +119,7 @@ class _WechatHomePageState extends State<WechatHomePage> {
                         fontFamily: WechatIcons.WechatIconFontFamily),
                     color: const Color(WechatColors.WechatAppbarMenuTextColor)
                 ),
-                Container(
+                SizedBox(
                   width: 16,
                 ),
                 Text('添加好友',
@@ -139,7 +139,7 @@ class _WechatHomePageState extends State<WechatHomePage> {
                       fontFamily: WechatIcons.WechatIconFontFamily),
                   color: const Color(WechatColors.WechatAppbarMenuTextColor),
                 ),
-                Container(
+                SizedBox(
                   width: 16,
                 ),
                 Text('扫一扫',
@@ -153,13 +153,12 @@ class _WechatHomePageState extends State<WechatHomePage> {
           PopupMenuItem(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Icon(
                     IconData(0xe62a,
                         fontFamily: WechatIcons.WechatIconFontFamily),
                     color: const Color(WechatColors.WechatAppbarMenuTextColor)),
-                Container(
+                SizedBox(
                   width: 16,
                 ),
                 Text('收付款',

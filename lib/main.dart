@@ -28,6 +28,7 @@ class WechatApp extends StatelessWidget {//runapp方法需要传入一个Widget�
       home:WechatRootContainer()
     );
   }
+ 
   
 }
 
