@@ -174,6 +174,8 @@ class _ContactItem extends StatelessWidget {
         placeholder: (BuildContext context, String url) {
           return Image.asset('assets/images/default_nor_avatar.png', width: 36.0, height: 36.0);
         },
+        width: 36.0,
+        height: 36.0,
       );
     }else{
       _avatar = Image.asset(this.contact.avatar, width: 40.0, height: 40.0);
