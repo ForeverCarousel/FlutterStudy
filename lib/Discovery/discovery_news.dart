@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'dart:convert';
 import 'dart:io';
@@ -247,11 +248,16 @@ class _GridTile extends StatelessWidget {
             containedInkWell: true,//true表示要剪裁水波纹响应的界面   false不剪裁  如果控件是圆角不剪裁的话水波纹是矩形
             onTap: (){
               Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context ){
-                    return DiscoverNewsDetailPage(movieModel: model,);
+                CupertinoPageRoute(
+                  builder: (context) {
+                    return DiscoverNewsDetailPage(movieModel: model);
                   }
                 )
+                // MaterialPageRoute(
+                //   builder: (BuildContext context ){
+                //     return DiscoverNewsDetailPage(movieModel: model,);
+                //   }
+                // )
               );
             },
             child: _buildTile()

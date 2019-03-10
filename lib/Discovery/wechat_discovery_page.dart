@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'wechat_standard_cell.dart';
 import 'discovery_news.dart' show DiscoveryNewsPage;
+
 
 class WechatDiscoveryPage extends StatelessWidget {
   static const SEPARATE_SIZE = 10.0;
@@ -66,11 +68,16 @@ class WechatDiscoveryPage extends StatelessWidget {
               onPressed: () {
                 print('点击了看一看');
                 Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder:(BuildContext context) {
+                  CupertinoPageRoute(
+                    builder: (context) {
                       return DiscoveryNewsPage();
-                    } 
+                    }
                   )
+                  // MaterialPageRoute(
+                  //   builder:(BuildContext context) {
+                  //     return DiscoveryNewsPage();
+                  //   } 
+                  // )
                 );
               },
             ),
