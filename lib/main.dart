@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'wechat_root_container.dart';
+import 'Root/wechat_root_container.dart';
 import 'Common/wechat_constant.dart' show WechatColors;
 /*
 runApp方法需要传入一个widget类型的对象 一般传入 MaterialApp 谷歌MD设计规范风格 CupertinoApp 苹果设计规范

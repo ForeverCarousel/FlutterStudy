@@ -2,72 +2,44 @@ import 'package:flutter/material.dart';
 import 'discovery_news.dart';
 import 'package:flutter/animation.dart';
 
-
-
 class DiscoverNewsDetailPage extends StatefulWidget {
-  final  MovieModel movieModel;
+  final MovieModel movieModel;
 
   DiscoverNewsDetailPage({Key key, this.movieModel}) : super(key: key);
 
   _DiscoverNewsDetailPageState createState() => _DiscoverNewsDetailPageState();
 }
 
-class _DiscoverNewsDetailPageState extends State<DiscoverNewsDetailPage> with SingleTickerProviderStateMixin{
-
-  Animation<double> _scaleAnimation;
-  AnimationController _saController;
-
-  @override
-  void initState() {
-    super.initState();
-    _saController = AnimationController(duration: const Duration(milliseconds: 600),vsync: this);
-    
-    CurvedAnimation curveAnimation = CurvedAnimation(
-      parent: _saController,
-      curve: Curves.bounceIn,
-      reverseCurve: Curves.easeInOutBack
-    );
-    _scaleAnimation = Tween(begin: 0.0, end: 500.0).animate(curveAnimation)..addListener((){
-                      debugPrint('动画监听回调');
-                      setState(() {});
-                      })..addStatusListener((status) {
-                        if (status == AnimationStatus.completed) {
-                          _saController.reverse();
-                        } else if (status == AnimationStatus.dismissed) {
-                          _saController.forward();
-                        }
-                      }
-                        
-                      );
-    _saController.forward();
-  }
-
-  @override
-  void dispose() {
-    _saController.dispose();
-    super.dispose();
-  }
-
+class _DiscoverNewsDetailPageState extends State<DiscoverNewsDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(widget.movieModel.movieName,style: TextStyle(fontSize: 18.0,fontWeight:FontWeight.bold , color: Colors.black)),
-        elevation: 0.0, //取消bar底部material风格的滚动标示图产生的阴影
-        centerTitle: true,
-        leading: BackButton(
-          color: Colors.black,
-        ),
-      ),
       backgroundColor: Color(0xffebebeb),
-      body: Center(
-        child: Image.asset(
-          'assets/images/user_avatar.png',
-          width: _scaleAnimation.value,
-          height: _scaleAnimation.value,
-        ),
-      ),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            backgroundColor: Colors.white,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              color: Colors.black,
+              onPressed: (){Navigator.of(context).pop();},
+            ),
+            // title: Text("12345",style: TextStyle(color: Colors.black)),
+            centerTitle: true,
+            expandedHeight: 270,
+            flexibleSpace: FlexibleSpaceBar(
+              // title: Text(widget.movieModel.movieName,style: TextStyle(color: Colors.white)),
+              // centerTitle: true,
+              background: Image.network(
+                widget.movieModel.imageURL,
+                fit: BoxFit.cover,
+              ),
+            ),
+          
+          ),
+          
+        ],
+      )
     );
   }
 }
