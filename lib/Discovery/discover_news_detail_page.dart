@@ -18,26 +18,45 @@ class _DiscoverNewsDetailPageState extends State<DiscoverNewsDetailPage> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
+            floating: false,
+            // snap: true,
+            pinned: true,
             backgroundColor: Colors.white,
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
-              color: Colors.black,
+              color: Colors.orange,
               onPressed: (){Navigator.of(context).pop();},
             ),
-            // title: Text("12345",style: TextStyle(color: Colors.black)),
+            title: Text(widget.movieModel.movieName,style: TextStyle(color: Colors.black)),
             centerTitle: true,
             expandedHeight: 270,
             flexibleSpace: FlexibleSpaceBar(
-              // title: Text(widget.movieModel.movieName,style: TextStyle(color: Colors.white)),
-              // centerTitle: true,
               background: Image.network(
                 widget.movieModel.imageURL,
                 fit: BoxFit.cover,
               ),
             ),
-          
           ),
-          
+          SliverFixedExtentList(
+            itemExtent: 100,
+            delegate: SliverChildListDelegate(
+              [
+                Text('1'),
+                Text('2'),
+                Text('3'),
+                Text('4'),
+                Text('5'),
+                Text('6'),
+                Text('7'),
+                Text('8'),
+                Text('9'),
+                Text('10'),
+                Text('11'),
+                Text('12'),
+
+              ]
+            ),
+          )
         ],
       )
     );
