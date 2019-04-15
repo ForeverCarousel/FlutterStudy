@@ -1,5 +1,7 @@
-# hello_flutter
 
+<a href="https://996.icu"><img src="https://img.shields.io/badge/link-996.icu-red.svg" alt="996.icu" /></a>
+
+# hello_flutter
 A new Flutter project.
 
 ## Getting Started
