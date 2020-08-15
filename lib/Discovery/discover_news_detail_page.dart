@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'discovery_news.dart';
-import 'package:flutter/animation.dart';
 
 class DiscoverNewsDetailPage extends StatefulWidget {
   final MovieModel movieModel;

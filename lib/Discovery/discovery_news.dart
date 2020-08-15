@@ -149,13 +149,13 @@ class _DiscoveryNewsPageState extends State<DiscoveryNewsPage> {
           controller: _refreshController,
           enablePullDown: true,
           enablePullUp: true,
-          onRefresh:(bool up){
-            if (up) {//下拉
-              _requestData(action: PullAction.updateData);
-            }else{//上啦
-              _requestData(action: PullAction.loadMore);
-            }
-          },
+          // onRefresh:(bool up){
+          //   if (up) {//下拉
+          //     _requestData(action: PullAction.updateData);
+          //   }else{//上啦
+          //     _requestData(action: PullAction.loadMore);
+          //   }
+          // },
           child: _buildGridView(),
         ) 
     );
